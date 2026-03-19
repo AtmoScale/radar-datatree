@@ -15,8 +15,7 @@
 <p align="center">
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-installation">Installation</a> •
-  <a href="#-documentation">Documentation</a> •
-  <a href="#-performance">Performance</a> •
+  <a href="#-notebooks">Notebooks</a> •
   <a href="#-citation">Citation</a>
 </p>
 
@@ -24,49 +23,11 @@
 
 ## Overview
 
-**Radar DataTree** transforms fragmented weather radar archives into **FAIR-compliant, cloud-optimized datasets**. It extends the WMO FM-301/CfRadial 2.1 standard from individual radar volume scans to **time-resolved, analysis-ready archives** that can be accessed and analyzed at scale.
-
-This repository provides **examples and tutorials** demonstrating how to access and analyze weather radar data stored in the Radar DataTree format.
-
-### The Problem
-
-Weather radar data is among the most scientifically valuable yet structurally underutilized Earth observation datasets:
-
-- Archives contain **millions of standalone binary files** in proprietary formats
-- **No temporal indexing** — each scan must be parsed independently
-- **Hours to days** required for multi-week analyses
-- Fundamentally **misaligned with FAIR data principles**
-
-### The Solution
-
-Radar DataTree provides a **dataset-level abstraction** that aggregates individual radar files into a **single hierarchical dataset** for seamless time-series analysis and scalable cloud storage—while preserving each VCP's unique structure.
+**Radar DataTree** transforms fragmented weather radar archives — millions of standalone binary files with no temporal indexing — into **FAIR-compliant, cloud-optimized datasets** built on [xarray.DataTree](https://docs.xarray.dev/en/stable/user-guide/hierarchical-data.html), [Zarr](https://zarr.dev), and [Icechunk](https://icechunk.io). This repository provides **examples and tutorials** for accessing and analyzing data in this format.
 
 <p align="center">
   <img src="images/radar_datatree.png" alt="Radar DataTree Architecture" width="800"/>
 </p>
-
-**Data Structure:**
-
-```
-/
-├── VCP-34/           # Clear-air Volume Coverage Pattern
-│   ├── sweep_0/      # Lowest elevation (0.5°)
-│   │   ├── DBZH      # Reflectivity
-│   │   ├── ZDR       # Differential reflectivity
-│   │   ├── RHOHV     # Cross-correlation coefficient
-│   │   └── PHIDP     # Differential phase
-│   ├── sweep_1/      # Next elevation
-│   │   ├── DBZH, ZDR, RHOHV, PHIDP
-│   │   └── VELOCITY  # Doppler velocity (not in sweep_0)
-│   └── ...
-├── VCP-212/          # Precipitation mode
-│   └── ...
-└── ...
-```
-
----
-
-## Performance
 
 | Metric | Traditional Workflow | Radar DataTree | Speedup |
 |--------|---------------------|----------------|---------|
@@ -74,26 +35,11 @@ Radar DataTree provides a **dataset-level abstraction** that aggregates individu
 | **QVP generation (1 week)** | Hours | **Seconds** | **100x+** |
 | **QPE accumulation (5 days)** | 30-60 minutes | **~12 seconds** | **70-150x** |
 
-All benchmarks performed on commodity hardware (laptop with 4 cores, 12 threads).
-
----
-
-## Technology Stack
-
-| Component | Role |
-|-----------|------|
-| **FM-301/CfRadial 2.1** | WMO standard for radar volumes and sweeps |
-| **xarray.DataTree** | Hierarchical in-memory data representation |
-| **Zarr** | Chunked, compressed, cloud-native storage |
-| **Icechunk** | ACID-compliant transactional storage with version control |
-
 ---
 
 ## Quick Start
 
-### Connect to NEXRAD KLOT Data
-
-NEXRAD data for KLOT (Chicago, IL) is available on the **Open Storage Network (OSN)** with anonymous access:
+NEXRAD KLOT (Chicago, IL) data is available on the **Open Storage Network** with anonymous access:
 
 ```python
 import xarray as xr
@@ -135,9 +81,7 @@ dtree["VCP-34/sweep_0"].DBZH.sel(
 
 ## Installation
 
-We strongly recommend using [**uv**](https://docs.astral.sh/uv/) for installing and managing this project. uv is a fast Python package and project manager written in Rust that handles dependency resolution significantly faster than traditional tools.
-
-To install uv, see the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/) or run:
+We strongly recommend [**uv**](https://docs.astral.sh/uv/) — a fast Python package and project manager written in Rust. Install it via the [official guide](https://docs.astral.sh/uv/getting-started/installation/) or run:
 
 ```bash
 # macOS / Linux
@@ -147,7 +91,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-### Using uv (recommended)
+Then clone and set up the project:
 
 ```bash
 git clone https://github.com/AtmoScale/radar-datatree.git
@@ -155,93 +99,42 @@ cd radar-datatree
 uv sync
 ```
 
-### Using conda
+<details>
+<summary>Alternative: conda or pip</summary>
 
+**conda:**
 ```bash
-git clone https://github.com/AtmoScale/radar-datatree.git
-cd radar-datatree
 conda env create -f environment.yml
 conda activate radar-datatree
 ```
 
-### Using pip
-
+**pip:**
 ```bash
-git clone https://github.com/AtmoScale/radar-datatree.git
-cd radar-datatree
 pip install -e ".[dev]"
 ```
 
+</details>
+
 ---
 
-## Documentation
-
-### Interactive Notebooks
-
-Explore the full capabilities through our Jupyter notebooks:
+## Notebooks
 
 | Notebook | Description |
 |----------|-------------|
-| [**1. Getting Started**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Data access, radar fundamentals, polarimetric visualization, and time-based selection |
-| [**2. QVP Workflow Comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | Reproduce a published QVP figure — ARCO vs traditional file-based workflows |
-| [**3. QPE Snow Storm**](https://atmoscale.github.io/radar-datatree/3.QPE-Snow-Storm.html) | Compute snow accumulation for the December 2025 Illinois winter storm |
+| [**1. Getting Started**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Data access, radar fundamentals, polarimetric visualization |
+| [**2. QVP Workflow Comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | Reproduce a published QVP figure — ARCO vs file-based performance |
+| [**3. QPE Snow Storm**](https://atmoscale.github.io/radar-datatree/3.QPE-Snow-Storm.html) | Snow accumulation estimation for the December 2025 Illinois storm |
 
-### Run Locally
-
-```bash
-cd notebooks
-jupyter lab
-```
-
----
-
-## Available Data
-
-### NEXRAD KLOT (Chicago, IL)
-
-| Property | Value |
-|----------|-------|
-| **Bucket** | `nexrad-arco` |
-| **Prefix** | `KLOT-RT` |
-| **Endpoint** | `https://umn1.osn.mghpcc.org` |
-| **Access** | Anonymous (no credentials) |
-| **Size** | ~92 GB |
-| **Time Range** | December 2025 (continuously updated) |
-
-> **AWS Open Data Registry**: This dataset has been submitted to the [AWS Open Data Registry](https://github.com/awslabs/open-data-registry/pull/3039) for broader discoverability and access.
-
----
-
-## Use Cases
-
-### Quasi-Vertical Profiles (QVP)
-
-QVPs summarize vertical trends in radar variables by azimuthally averaging data from constant-elevation sweeps. Essential for:
-- Storm microphysics analysis
-- Melting layer detection
-- Hydrometeor classification
-
-### Quantitative Precipitation Estimation (QPE)
-
-Compute precipitation accumulations over extended periods using reflectivity-derived rain rates:
-- Multi-day accumulations in seconds
-- Z-R relationship customization
-- Real-time and retrospective analysis
-
-### Time-Series Extraction
-
-Extract radar data at fixed locations for:
-- Sensor intercomparisons
-- Validation studies
-- Data assimilation workflows
+Run locally: `cd notebooks && jupyter lab`
 
 ---
 
 ## Citation
 
-If you use this framework, please cite:
-
 > **Ladino-Rincón, A., & Nesbitt, S. W. (2025).** Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives. *arXiv preprint arXiv:2510.24943 [cs.DC]*. https://doi.org/10.48550/arXiv.2510.24943
+
+<details>
+<summary>BibTeX</summary>
 
 ```bibtex
 @article{ladino2025radardatatree,
@@ -253,37 +146,16 @@ If you use this framework, please cite:
 }
 ```
 
----
-
-## Need to Convert Your Own Data?
-
-The conversion tool (**Raw2Zarr**) transforms raw radar files (NEXRAD Level II, SIGMET/IRIS, ODIM_H5) into the ARCO format. Contact us for access:
-
-**Alfonso Ladino-Rincón**
-- GitHub: [@aladinor](https://github.com/aladinor) | [AtmoScale](https://github.com/AtmoScale)
-- Email: alfonso8@illinois.edu
+</details>
 
 ---
 
-## Related Projects
+## Contact
 
-| Project | Description |
-|---------|-------------|
-| [xarray](https://xarray.dev) | N-D labeled arrays and datasets |
-| [xradar](https://xradar.dev) | Radar data I/O and analysis |
-| [Zarr](https://zarr.dev) | Chunked, compressed N-dimensional arrays |
-| [Icechunk](https://icechunk.io) | Transactional storage engine for Zarr |
-| [Py-ART](https://arm-doe.github.io/pyart/) | Python ARM Radar Toolkit |
+The conversion tool (**Raw2Zarr**) transforms raw radar files into the ARCO format. Contact us for access.
 
----
+**[Alfonso Ladino-Rincón](https://github.com/aladinor)** · **[Stephen Nesbitt](https://github.com/swnesbitt)** · University of Illinois Urbana-Champaign
 
-## Authors
+Built with [xarray](https://xarray.dev) · [xradar](https://xradar.dev) · [Zarr](https://zarr.dev) · [Icechunk](https://icechunk.io)
 
-- **[Alfonso Ladino-Rincón](https://github.com/aladinor)** — University of Illinois Urbana-Champaign
-- **[Stephen Nesbitt](https://github.com/swnesbitt)** — University of Illinois Urbana-Champaign
-
----
-
-## License
-
-This project is licensed under the **Apache License 2.0** — see the [LICENSE](LICENSE) file for details.
+[Apache License 2.0](LICENSE)
