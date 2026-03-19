@@ -14,9 +14,9 @@
 
 <p align="center">
   <a href="#-quick-start">Quick Start</a> •
+  <a href="#-installation">Installation</a> •
   <a href="#-documentation">Documentation</a> •
   <a href="#-performance">Performance</a> •
-  <a href="#-installation">Installation</a> •
   <a href="#-citation">Citation</a>
 </p>
 
@@ -133,28 +133,19 @@ dtree["VCP-34/sweep_0"].DBZH.sel(
 
 ---
 
-## Documentation
+## Installation
 
-### Interactive Notebooks
+We strongly recommend using [**uv**](https://docs.astral.sh/uv/) for installing and managing this project. uv is a fast Python package and project manager written in Rust that handles dependency resolution significantly faster than traditional tools.
 
-Explore the full capabilities through our Jupyter notebooks:
-
-| Notebook | Description |
-|----------|-------------|
-| [**1. Getting Started**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Data access, radar fundamentals, polarimetric visualization, and time-based selection |
-| [**2. QVP Workflow Comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | Reproduce a published QVP figure — ARCO vs traditional file-based workflows |
-| [**3. QPE Snow Storm**](https://atmoscale.github.io/radar-datatree/3.QPE-Snow-Storm.html) | Compute snow accumulation for the December 2025 Illinois winter storm |
-
-### Run Locally
+To install uv, see the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/) or run:
 
 ```bash
-cd notebooks
-jupyter lab
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
-
----
-
-## Installation
 
 ### Using uv (recommended)
 
@@ -179,6 +170,27 @@ conda activate radar-datatree
 git clone https://github.com/AtmoScale/radar-datatree.git
 cd radar-datatree
 pip install -e ".[dev]"
+```
+
+---
+
+## Documentation
+
+### Interactive Notebooks
+
+Explore the full capabilities through our Jupyter notebooks:
+
+| Notebook | Description |
+|----------|-------------|
+| [**1. Getting Started**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Data access, radar fundamentals, polarimetric visualization, and time-based selection |
+| [**2. QVP Workflow Comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | Reproduce a published QVP figure — ARCO vs traditional file-based workflows |
+| [**3. QPE Snow Storm**](https://atmoscale.github.io/radar-datatree/3.QPE-Snow-Storm.html) | Compute snow accumulation for the December 2025 Illinois winter storm |
+
+### Run Locally
+
+```bash
+cd notebooks
+jupyter lab
 ```
 
 ---
