@@ -80,6 +80,7 @@ jobs:
           # Copy notebook images to build output
           cp -r notebooks/*.png _build/html/ 2>/dev/null || true
           cp -r images/ _build/html/images/ 2>/dev/null || true
+          cp -r assets/ _build/html/assets/ 2>/dev/null || true
 
       - name: Upload artifact for Pages
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

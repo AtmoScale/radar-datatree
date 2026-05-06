@@ -1,7 +1,5 @@
-<h1 align="center">Radar DataTree</h1>
-
 <p align="center">
-  <strong>A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives</strong>
+  <img src="assets/logo-banner.png" alt="radar-datatree — Cloud-native, time-aware weather radar datasets" width="800">
 </p>
 
 <p align="center">
