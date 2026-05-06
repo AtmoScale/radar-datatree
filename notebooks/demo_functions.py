@@ -120,6 +120,30 @@ def compute_qvp(ds: xr.Dataset, var="DBZH") -> xr.DataArray:
     return qvp
 
 
+def set_publication_style() -> None:
+    """Set matplotlib rcParams to match the Ryzhkov QVP figure style.
+
+    Use r"$...$" math-mode for axis labels to get the same italic
+    rendering as the Ryzhkov QVP figure.
+    """
+    plt.rcParams.update(
+        {
+            "font.family": "sans-serif",
+            "font.sans-serif": ["DejaVu Sans"],
+            "font.size": 10,
+            "axes.titlesize": "large",
+            "axes.labelsize": "medium",
+            "axes.labelweight": "normal",
+            "axes.titleweight": "normal",
+            "legend.fontsize": "medium",
+            "xtick.labelsize": "medium",
+            "ytick.labelsize": "medium",
+            "mathtext.fontset": "dejavusans",
+            "mathtext.default": "it",
+        }
+    )
+
+
 def ryzhkov_figure(qvp_ref, qvp_zdr, qvp_rhohv, qvp_phidp):
     fig, axs = plt.subplots(2, 2, figsize=(9, 5), sharey=True, sharex=True)
 
@@ -433,6 +457,32 @@ def nexrad_download_with_size(filepath: str) -> tuple:
     dtree = xd.io.open_nexradlevel2_datatree(stream.read())
 
     return dtree, size_bytes
+
+
+def polar_to_geographic(ds, radar_lat, radar_lon):
+    """
+    Add geographic coordinates (latitude, longitude) to a radar dataset.
+
+    Converts radar-centered x/y coordinates (meters) to approximate
+    lat/lon using a simple offset from the radar location.
+
+    Parameters
+    ----------
+    ds : xr.Dataset or xr.DataArray
+        Radar data with 'x' and 'y' coordinates in meters from radar.
+    radar_lat : float
+        Radar latitude in degrees.
+    radar_lon : float
+        Radar longitude in degrees.
+
+    Returns
+    -------
+    xr.Dataset or xr.DataArray
+        Input data with added 'latitude' and 'longitude' coordinates.
+    """
+    lon = radar_lon + (ds.x / 111000) / np.cos(np.radians(radar_lat))
+    lat = radar_lat + (ds.y / 111000)
+    return ds.assign_coords(longitude=lon, latitude=lat)
 
 
 def concat_sweep_across_vcps(
