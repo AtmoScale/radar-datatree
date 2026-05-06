@@ -20,15 +20,19 @@
 
 Connect to the public [`s3://nexrad-arco`](https://registry.opendata.aws/nexrad-arco/) bucket on AWS, open the NEXRAD KLOT (Chicago) archive as one `xarray.DataTree`, and visualize a polarimetric scan. No downloads, no credentials.
 
+**Available archives:** `nexrad-arco/KLOT` on AWS (us-east-1). More NEXRAD radars are published to the same bucket as they're processed.
+
 ## Notebooks
 
 | | |
 |---|---|
 | [**1. NEXRAD KLOT demo**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Open weather radar archives in 5 lines — AWS Open Data Registry entry point. |
-| [**2. QVP workflow comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | Reproduce Ryzhkov et al. (2016); benchmark ARCO vs file-based access. |
+| [**2. QVP workflow comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | **Paper reproduction.** Reproduce Ryzhkov et al. (2016); benchmark ARCO vs file-based access. |
 | [**3. QPE snow storm**](https://atmoscale.github.io/radar-datatree/3.QPE-Snow-Storm.html) | Snow accumulation for the December 2025 Illinois winter storm. |
 
 ## Install
+
+Requires Python ≥ 3.12.
 
 ```bash
 git clone https://github.com/AtmoScale/radar-datatree.git
