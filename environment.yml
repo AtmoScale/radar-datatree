@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  - python>=3.11
+  - python>=3.12
   - fsspec
   - jupyterlab
   - notebook
@@ -22,8 +22,11 @@ dependencies:
   - numpy<2.3
   - matplotlib
   - cmweather
+  - geopandas>=1.0.0
+  - pyproj>=3.6.0
   - pip
   - pip:
-      - icechunk>=1.1.10
+      - icechunk>=2.0.4
+      - rustytree-xarray>=0.1
       - sphinx-design>=0.6.1
       - sphinx-copybutton>=0.5.1

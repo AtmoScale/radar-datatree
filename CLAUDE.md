@@ -8,6 +8,24 @@ radar-datatree is a public-facing repository that provides examples and tutorial
 
 **Important Context**: This is the public companion to `raw2zarr` (a private repository). The conversion tool is private due to licensing discussions with UIUC OTM. This repository focuses on **reading and analyzing** already-converted data, not converting raw data.
 
+## Implementation Workflow (per-phase)
+
+Plans for non-trivial work live in `.plan_out/<kebab-case-name>.md` at the repo root, structured as numbered phases with checkboxes (see `.plan_out/qvp-benchmark-integration.md` as a format reference).
+
+**For every phase in such a plan, follow this exact sequence — no shortcuts:**
+
+1. **Implement** all refactor code for the phase end-to-end. Do not interleave phases.
+2. **Smoke test** — run the smallest realistic check that the change works (notebook executes, import resolves, helper returns expected shape, etc.).
+3. **Audit** with these slash commands, in this order, addressing findings before moving on:
+   - `/simplify`
+   - `/xarray`
+   - `/python-design-patterns`
+   - `/python-code-review`
+   - `/python-testing-patterns`
+4. **Ask for explicit approval** before committing — never `git commit`/`push`/`gh pr create` autonomously.
+5. **On approval**: commit, push, open the PR, then update the plan file by checking off the completed phase's items.
+6. **Wait for the PR to merge** before starting the next phase. One PR per phase, not one mega-PR per plan.
+
 ## Architecture
 
 The Radar DataTree framework uses:
@@ -117,7 +135,7 @@ dtree = xr.open_datatree(
 
 ## Key Files
 
-- `notebooks/1.NEXRAD-KLOT-Demo.ipynb`: Beginner tutorial — data access and polarimetric visualization
+- `notebooks/1.NEXRAD-KLOT-Demo.ipynb`: AWS Open Data access demo — data access and polarimetric visualization. **Filename is fixed**: this file is linked from the [AWS Open Data Registry page for nexrad-arco](https://registry.opendata.aws/nexrad-arco/). Never rename, move, or delete it; rewrites in place are fine.
 - `notebooks/2.QVP-Workflow-Comparison.ipynb`: Intermediate — QVP reproduction, ARCO vs file-based performance comparison
 - `notebooks/3.QPE-Snow-Storm.ipynb`: Advanced — snow accumulation estimation using Z-R relationships
 - `notebooks/demo_functions.py`: All helper functions (QVP, rainfall, visualization, data access)
