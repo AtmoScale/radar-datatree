@@ -21,7 +21,9 @@ extensions = [
 nb_execution_mode = (
     "cache"  # Execute and cache results; re-execute only when code changes
 )
-nb_execution_timeout = 120  # seconds per cell (basin zonal stats can be slow)
+# Per-cell timeout (seconds). The file-based 1-day download cell in
+# notebook 2 takes ~7–8 minutes on a CI runner.
+nb_execution_timeout = 600
 myst_enable_extensions = [
     "attrs_block",
     "attrs_inline",
@@ -62,7 +64,6 @@ exclude_patterns = [
     "QVP-Workflow-Benchmark.ipynb",  # Benchmark notebook for paper, not rendered in docs
     # Hidden until refactored against rustytree + xarray 2026.4. Each
     # comes back in its own PR as the rewrite lands.
-    "2.QVP-Workflow-Comparison.ipynb",
     "3.QPE-Snow-Storm.ipynb",
     "4.Basin-Precipitation-Monitoring.ipynb",
     "5.Rainfall-QPE-Marshall-Palmer.ipynb",
