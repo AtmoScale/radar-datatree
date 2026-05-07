@@ -21,7 +21,9 @@ extensions = [
 nb_execution_mode = (
     "cache"  # Execute and cache results; re-execute only when code changes
 )
-nb_execution_timeout = 120  # seconds per cell (basin zonal stats can be slow)
+# Per-cell timeout (seconds). The file-based 1-day download cell in
+# notebook 2 takes ~7–8 minutes on a CI runner.
+nb_execution_timeout = 600
 myst_enable_extensions = [
     "attrs_block",
     "attrs_inline",
