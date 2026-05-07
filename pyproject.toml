@@ -24,9 +24,8 @@ classifiers = [
 ]
 
 dependencies = [
-    # Custom xarray branch with async DataTree support
-    "xarray @ git+https://github.com/aladinor/xarray.git@async-dtreec",
-    "xradar>=0.10.0",
+    "xarray>=2026.4.0",
+    "xradar>=0.12.0",
     "zarr>=3.1.2",
     # Rust-backed xarray DataTree backend (engine="rustytree")
     "rustytree-xarray>=0.1",
