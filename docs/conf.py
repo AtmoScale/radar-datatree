@@ -62,7 +62,6 @@ exclude_patterns = [
     "QVP-Workflow-Benchmark.ipynb",  # Benchmark notebook for paper, not rendered in docs
     # Hidden until refactored against rustytree + xarray 2026.4. Each
     # comes back in its own PR as the rewrite lands.
-    "2.QVP-Workflow-Comparison.ipynb",
     "3.QPE-Snow-Storm.ipynb",
     "4.Basin-Precipitation-Monitoring.ipynb",
     "5.Rainfall-QPE-Marshall-Palmer.ipynb",

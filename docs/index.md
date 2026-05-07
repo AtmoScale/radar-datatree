@@ -17,10 +17,10 @@ Instead of downloading and parsing thousands of binary files, you get direct acc
 ## Start here
 
 ```{note}
-The repo is being refactored notebook-by-notebook against the new `engine="rustytree"` + xarray 2026.4 stack. The full set (QVP workflow comparison, QPE products, basin monitoring, rainfall estimation) returns as each refactor lands. For now, start with the AWS Open Data demo:
+The repo is being refactored notebook-by-notebook against the new `engine="rustytree"` + xarray 2026.4 stack. The QPE / basin / rainfall tutorials return as each refactor lands.
 ```
 
-````{grid} 1 1 1 1
+````{grid} 1 1 2 2
 :gutter: 3
 
 ```{grid-item-card}
@@ -40,6 +40,23 @@ The AWS Open Data Registry demo. Connect to `s3://nexrad-arco`, open the NEXRAD 
 ~5 min read | Beginner
 ```
 
+```{grid-item-card}
+:link: 2.QVP-Workflow-Comparison
+:link-type: doc
+:class-card: sd-bg-light
+
+**2. Reproduce Ryzhkov et al. (2016): traditional vs ARCO**
+
+Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS using both the traditional file-download workflow and the ARCO streaming workflow, and measure the gap. ~6 minutes traditional vs ~10 seconds ARCO.
+
+- KVNX (MC3E campaign), OSN anonymous
+- Traditional: 55 NEXRAD files downloaded + decoded
+- ARCO: streaming via `engine="rustytree"`
+
++++
+~7 min read + ~6 min run | Intermediate
+```
+
 ````
 
 ```{toctree}
@@ -47,6 +64,7 @@ The AWS Open Data Registry demo. Connect to `s3://nexrad-arco`, open the NEXRAD 
 :maxdepth: 1
 
 1.NEXRAD-KLOT-Demo
+2.QVP-Workflow-Comparison
 ```
 
 ---
