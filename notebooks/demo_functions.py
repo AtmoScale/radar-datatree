@@ -645,3 +645,356 @@ def concat_sweep_across_vcps(
         concatenated = concatenated.sortby(append_dim)
 
     return concatenated
+
+
+# ---------------------------------------------------------------------------
+# QVP-Workflow-Comparison notebook helpers
+#
+# These helpers absorb the formatted-print blocks that used to live inline in
+# notebook 2. They are not general-purpose; they expose the specific layout
+# the paper-reproduction artifact uses for the "Traditional vs ARCO" panels.
+# ---------------------------------------------------------------------------
+
+
+def calculate_chunk_metrics(ds, variables):
+    """Count dask chunks and bytes that streaming the requested variables
+    from a chunked Dataset would fetch.
+
+    Returns ``(total_chunks, total_bytes, chunk_details)``. Variables that
+    are not chunked (``da.chunks is None``) or absent from ``ds`` are
+    skipped. ``chunk_details`` maps variable name to a dict of
+    ``n_chunks``, ``chunk_shape``, ``chunk_size_mb``, and ``total_bytes``.
+    """
+    total_chunks = 0
+    total_bytes = 0
+    chunk_details = {}
+    for var in variables:
+        if var not in ds.data_vars:
+            continue
+        da = ds[var]
+        if da.chunks is None:
+            continue
+        n_chunks = 1
+        for dim_chunks in da.chunks:
+            n_chunks *= len(dim_chunks)
+        dtype_size = da.dtype.itemsize
+        var_bytes = dtype_size * da.size
+        chunk_shape = tuple(c[0] if c else 1 for c in da.chunks)
+        chunk_bytes = dtype_size * int(np.prod(chunk_shape))
+        chunk_details[var] = {
+            "n_chunks": n_chunks,
+            "chunk_shape": chunk_shape,
+            "chunk_size_mb": chunk_bytes / 1e6,
+            "total_bytes": var_bytes,
+        }
+        total_chunks += n_chunks
+        total_bytes += var_bytes
+    return total_chunks, total_bytes, chunk_details
+
+
+def print_traditional_summary(metrics, ds_traditional):
+    """Print the wall-clock + RAM + concat-shape summary for the traditional
+    workflow (used in notebook 2 after the file-download loop)."""
+    t = metrics["traditional"]
+    workflow_min = t["total_workflow_time"] / 60
+    print("=" * 60)
+    print("TRADITIONAL WORKFLOW - ACTUAL COSTS (ALL FILES)")
+    print("=" * 60)
+    print(f"Files processed:               {t['files_processed']}")
+    print(f"Download + decode time:        {t['total_time']:.1f}s")
+    print(f"Concatenation time:            {t['concat_time']:.2f}s")
+    print(f"QVP computation time:          {t['qvp_compute_time']:.2f}s")
+    print(
+        f"TOTAL WORKFLOW TIME:           "
+        f"{t['total_workflow_time']:.1f}s ({workflow_min:.1f} min)"
+    )
+    print("-" * 60)
+    print(f"Network transfer (compressed): {t['total_size_mb']:.1f} MB")
+    print(f"Peak RAM (download phase):     {t['peak_memory_mb']:.0f} MB")
+    print(f"Peak RAM (concat phase):       {t['concat_peak_memory_mb']:.0f} MB")
+    print("=" * 60)
+    print("\nConcatenated dataset shape:")
+    print(f"  Time steps: {len(ds_traditional.vcp_time)}")
+    print(f"  Azimuth: {len(ds_traditional.azimuth)}")
+    print(f"  Range: {len(ds_traditional.range)}")
+    print(f"  Variables: {list(ds_traditional.data_vars)[:6]}...")
+
+
+def print_chunk_analysis(
+    metrics,
+    chunk_details,
+    n_chunks,
+    arco_bytes,
+    *,
+    selected_sweep,
+    n_total_sweeps,
+    compression_ratio=4.0,
+):
+    """Print the per-variable chunk breakdown and the selective-access
+    advantage table (ARCO bytes vs traditional bytes).
+
+    ``selected_sweep`` is the sweep name streamed via ARCO (e.g. ``"sweep_16"``).
+    ``n_total_sweeps`` is the number of sweeps a NEXRAD Level II file holds for
+    the chosen VCP (17 for VCP-12 / VCP-212 used in the paper). They drive the
+    "1/N sweeps used" framing — no defaults, since silently using stale
+    constants would lie if the notebook ever changes elevation strategy.
+    ``compression_ratio`` is the assumed gzip ratio for NEXRAD Level II
+    files (~4:1 by convention).
+
+    Side effect: stashes ``arco_bytes / 1e6`` and the gzip-decompressed
+    traditional volume into ``metrics["arco"]["uncompressed_mb"]`` and
+    ``metrics["traditional"]["uncompressed_mb"]`` respectively, plus
+    ``metrics["arco"]["chunk_details"]``. Downstream helpers
+    (``print_workflow_comparison``) read from this single source of truth
+    rather than recomputing.
+    """
+    t = metrics["traditional"]
+    a = metrics["arco"]
+    arco_mb = arco_bytes / 1e6
+    traditional_uncompressed = t["total_size_mb"] * compression_ratio
+    n_vars = len(chunk_details)
+
+    a["uncompressed_mb"] = arco_mb
+    a["chunk_details"] = chunk_details
+    t["uncompressed_mb"] = traditional_uncompressed
+
+    print("DATA ACCESS ANALYSIS:")
+    print("=" * 70)
+    print()
+    print(f"ARCO - Selective Chunk Streaming ({selected_sweep}, {n_vars} variables):")
+    print("-" * 70)
+    print("  NOTE: No compression in this ARCO dataset - network = data size")
+    print()
+    for var, details in chunk_details.items():
+        size_mb = details["chunk_size_mb"]
+        total_mb = details["total_bytes"] / 1e6
+        print(
+            f"  {var}: {details['n_chunks']} chunks × "
+            f"{size_mb:.2f} MB = {total_mb:.1f} MB"
+        )
+    print("-" * 70)
+    print(f"  Total chunks streamed:  {n_chunks}")
+    print(f"  Network transfer:       {arco_mb:.1f} MB")
+    print()
+    print(
+        f"TRADITIONAL - Full File Downloads (all {n_total_sweeps} sweeps, "
+        f"all variables):"
+    )
+    print("-" * 70)
+    print(f"  Network transfer:       {t['total_size_mb']:.1f} MB (gzip compressed)")
+    print(f"  Decompressed in RAM:    ~{traditional_uncompressed:.0f} MB")
+    print(
+        f"  Data actually used:     ~{traditional_uncompressed / n_total_sweeps:.0f} MB "
+        f"(1/{n_total_sweeps} = {selected_sweep} only)"
+    )
+    print()
+    print("=" * 70)
+    print("SELECTIVE ACCESS ADVANTAGE:")
+    print(
+        f"  Network: ARCO {arco_mb:.0f} MB vs Traditional {t['total_size_mb']:.0f} MB"
+    )
+    print(f"           → {t['total_size_mb'] / arco_mb:.1f}x less data transferred")
+    print(
+        f"  RAM:     ARCO streams on-demand vs Traditional loads "
+        f"{traditional_uncompressed:.0f} MB"
+    )
+    print(f"           → {traditional_uncompressed / arco_mb:.0f}x less data processed")
+    print("=" * 70)
+
+
+def print_arco_summary(metrics):
+    """Print ARCO workflow timing + chunk summary."""
+    a = metrics["arco"]
+    print("=" * 60)
+    print("ARCO DATA STREAMING - PERFORMANCE SUMMARY")
+    print("=" * 60)
+    print(f"Timesteps processed:           {a['timesteps']}")
+    print(f"Connect to repository:         {a['connect_time']:.2f}s (metadata only)")
+    print(
+        f"Open DataTree:                 {a['open_datatree_time']:.2f}s (lazy, no data)"
+    )
+    print(f"Compute QVPs (data streams):   {a['qvp_compute_time']:.2f}s")
+    print(f"Total time:                    {a['total_time']:.1f} seconds")
+    print("-" * 60)
+    print(f"Chunks streamed on-demand:     {a['n_chunks']}")
+    print(
+        f"Data streamed (network):       {a['uncompressed_mb']:.1f} MB (no compression)"
+    )
+    print("=" * 60)
+
+
+def print_workflow_comparison(
+    metrics,
+    *,
+    selected_sweep,
+    n_total_sweeps,
+    n_total_vars_per_sweep=8,
+):
+    """Print the full traditional-vs-ARCO comparison: throughput methodology
+    block + workflow comparison table.
+
+    Reads everything except the descriptive labels from ``metrics``. Required
+    keys (set by earlier cells / by ``print_chunk_analysis``):
+    ``traditional.{total_size_mb, total_workflow_time, peak_memory_mb,
+    files_processed, throughput_mbs, uncompressed_mb}``,
+    ``arco.{timesteps, total_time, throughput_mbs, uncompressed_mb,
+    chunk_details}``, and top-level ``speedup``, ``data_reduction``,
+    ``throughput_gain``. ``n_total_vars_per_sweep`` is the cosmetic "X/Y
+    vars" denominator (NEXRAD Level II files carry ~8 polarimetric variables
+    per sweep).
+    """
+    t = metrics["traditional"]
+    a = metrics["arco"]
+    useful_data_mb = a["uncompressed_mb"]
+    trad_throughput = t["throughput_mbs"]
+    arco_throughput = a["throughput_mbs"]
+    speedup = metrics["speedup"]
+    data_reduction = metrics["data_reduction"]
+    throughput_gain = metrics["throughput_gain"]
+    n_variables = len(a["chunk_details"])
+
+    # Throughput methodology block.
+    print("=" * 75)
+    print("           THROUGHPUT METHODOLOGY (Fair Comparison)")
+    print("=" * 75)
+    print()
+    print("Both workflows need the SAME useful data for QVP analysis:")
+    print(
+        f"  → {n_variables} variables × {a['timesteps']} timesteps × 1 sweep = "
+        f"{useful_data_mb:.1f} MB"
+    )
+    print()
+    print("TRADITIONAL: Downloads everything, uses only what's needed")
+    print(f"  Network transfer:    {t['total_size_mb']:.0f} MB (gzip compressed)")
+    print(
+        f"  Decompressed in RAM: ~{t['uncompressed_mb']:.0f} MB (all sweeps, all vars)"
+    )
+    print(f"  Peak RAM:            {t['peak_memory_mb']:.0f} MB")
+    print(
+        f"  Useful data:         {useful_data_mb:.0f} MB "
+        f"(1/{n_total_sweeps} sweeps, {n_variables}/{n_total_vars_per_sweep} vars)"
+    )
+    print(f"  Total time:          {t['total_workflow_time']:.1f}s")
+    print(
+        f"  Effective throughput: {useful_data_mb:.0f} MB / "
+        f"{t['total_workflow_time']:.1f}s = {trad_throughput:.2f} MB/s"
+    )
+    print()
+    print("ARCO: Streams only what's needed (no compression in this dataset)")
+    print(f"  Network transfer:    {useful_data_mb:.0f} MB (uncompressed chunks)")
+    print(f"  Data in RAM:         {useful_data_mb:.0f} MB (exactly what's needed)")
+    print(f"  Total time:          {a['total_time']:.1f}s")
+    print(
+        f"  Effective throughput: {useful_data_mb:.0f} MB / "
+        f"{a['total_time']:.1f}s = {arco_throughput:.1f} MB/s"
+    )
+    print()
+    print("KEY INSIGHT: ARCO advantage is SELECTIVE ACCESS, not compression.")
+    print(
+        f"             Traditional downloads {t['total_size_mb']:.0f} MB to get "
+        f"{useful_data_mb:.0f} MB of useful data."
+    )
+    print(
+        f"             ARCO streams exactly {useful_data_mb:.0f} MB - only the "
+        f"chunks needed."
+    )
+    print("=" * 75)
+    print()
+
+    # Comparison table.
+    print("=" * 75)
+    print("              WORKFLOW COMPARISON (Actual Measurements)")
+    print("=" * 75)
+    print(f"{'Metric':<40} {'Traditional':>15} {'ARCO Stream':>15}")
+    print("-" * 75)
+    rows = [
+        (
+            "Total processing time",
+            f"{t['total_workflow_time']:.1f}s",
+            f"{a['total_time']:.1f}s",
+        ),
+        ("Timesteps processed", str(t["files_processed"]), str(a["timesteps"])),
+        (
+            "Network transfer",
+            f"{t['total_size_mb']:.0f} MB (gzip)",
+            f"{useful_data_mb:.0f} MB",
+        ),
+        (
+            "Peak RAM usage",
+            f"{t['peak_memory_mb']:.0f} MB",
+            f"{useful_data_mb:.0f} MB",
+        ),
+        (
+            "Useful data for analysis",
+            f"{useful_data_mb:.0f} MB",
+            f"{useful_data_mb:.0f} MB",
+        ),
+        (
+            "Effective throughput",
+            f"{trad_throughput:.2f} MB/s",
+            f"{arco_throughput:.1f} MB/s",
+        ),
+        (
+            "Sweeps loaded",
+            f"ALL ({n_total_sweeps}/file)",
+            f"1 ({selected_sweep})",
+        ),
+        (
+            "Variables loaded",
+            f"ALL (~{n_total_vars_per_sweep}/sweep)",
+            f"{n_variables} (selected)",
+        ),
+    ]
+    for label, trad, arco in rows:
+        print(f"{label:.<40} {trad:>15} {arco:>15}")
+    print("-" * 75)
+    print(f"{'SPEEDUP':.<40} {'':>15} {speedup:.1f}x faster")
+    print(f"{'DATA EFFICIENCY':.<40} {'':>15} {data_reduction:.0f}x less data loaded")
+    print(f"{'THROUGHPUT GAIN':.<40} {'':>15} {throughput_gain:.0f}x higher")
+    print("=" * 75)
+
+
+def assert_qvp_equivalence(qvp_a, qvp_b, variables, tolerances):
+    """Print per-variable max-abs-diff between two QVP dicts and raise
+    ``AssertionError`` if any variable's diff exceeds its tolerance.
+
+    ``qvp_a`` and ``qvp_b`` are dicts mapping variable name to an
+    xr.DataArray. ``tolerances`` is a dict mapping variable name to a
+    ``(absolute_tolerance, unit_label)`` tuple. Variables absent from
+    either dict are skipped, but if no variables remain to compare a
+    ``ValueError`` is raised — silently passing an "equivalence" assertion
+    that compared zero variables would defeat the whole sanity check.
+    """
+    print("Verifying numerical equivalence")
+    print("-" * 60)
+    results = []
+    for var in variables:
+        if var not in qvp_a or var not in qvp_b:
+            continue
+        atol, unit = tolerances[var]
+        diff = float(np.abs(qvp_a[var].values - qvp_b[var].values).max())
+        unit_suffix = f" {unit}" if unit else ""
+        print(
+            f"  {var:6s}  max |Δ| = {diff:7.4f} {unit:<3}  "
+            f"(tolerance {atol}{unit_suffix})"
+        )
+        results.append((var, diff, atol, unit))
+    print("-" * 60)
+
+    if not results:
+        raise ValueError(
+            "assert_qvp_equivalence: no variables compared. "
+            f"variables={list(variables)}, qvp_a keys={list(qvp_a)}, "
+            f"qvp_b keys={list(qvp_b)} — at least one shared variable "
+            "is required."
+        )
+
+    failures = [(v, d, a, u) for v, d, a, u in results if d >= a]
+    if failures:
+        msg = "QVP equivalence failed: " + ", ".join(
+            f"{v} max |Δ|={round(d, 4)}{(' ' + u) if u else ''} ≥ "
+            f"tolerance {a}{(' ' + u) if u else ''}"
+            for v, d, a, u in failures
+        )
+        raise AssertionError(msg)
+    print("Both workflows produce numerically equivalent QVPs.")
