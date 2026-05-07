@@ -46,11 +46,13 @@ dtree["VCP-34/sweep_0"].DBZH.sel(vcp_time="2025-12-13 15:36", method="nearest").
 
 ---
 
-## Learning Path
+## Start here
 
-Follow this 3-notebook journey from beginner to advanced:
+```{note}
+The repo is being refactored notebook-by-notebook against the new `engine="rustytree"` + xarray 2026.4 stack. The full set (QVP workflow comparison, QPE products, basin monitoring, rainfall estimation) returns as each refactor lands. For now, start with the AWS Open Data demo:
+```
 
-````{grid} 1 2 3 3
+````{grid} 1 1 1 1
 :gutter: 3
 
 ```{grid-item-card}
@@ -58,50 +60,16 @@ Follow this 3-notebook journey from beginner to advanced:
 :link-type: doc
 :class-card: sd-bg-light
 
-**1. Your First Weather Radar**
+**1. Open NEXRAD radar archives in 5 lines with radar-datatree**
 
-Start here. Access 92 GB of radar data in 5 seconds. Learn the fundamentals of cloud-native radar with plain-English explanations of what radar actually measures.
+The AWS Open Data Registry demo. Connect to `s3://nexrad-arco`, open the NEXRAD KLOT (Chicago, IL) archive as one `xarray.DataTree`, and visualize a polarimetric scan — without downloading a file.
 
-- Connect to cloud storage
-- Visualize 5 polarimetric variables
-- Explore Git-like version control
-
-+++
-15-20 min | Beginner
-```
-
-```{grid-item-card}
-:link: 2.QVP-Workflow-Comparison
-:link-type: doc
-:class-card: sd-bg-light
-
-**2. Scientific Showcase**
-
-Reproduce published science. Recreate Figure 4 from Ryzhkov et al. (2016) in under a minute. Learn how QVPs reveal precipitation microphysics.
-
-- 36x speedup demonstration
-- QVP science explained
-- Scientific interpretation guide
+- Anonymous icechunk session on AWS
+- Open with `engine="rustytree"`
+- 2×2 polarimetric finale
 
 +++
-25-30 min | Intermediate
-```
-
-```{grid-item-card}
-:link: 3.QPE-Snow-Storm
-:link-type: doc
-:class-card: sd-bg-light
-
-**3. Real-World Application**
-
-Compute snow accumulation. Analyze the December 2025 Illinois winter storm. Apply Z-R relationships and create geographic accumulation maps.
-
-- Z-R relationships for snow
-- Multi-VCP handling
-- Uncertainty discussion
-
-+++
-30-40 min | Intermediate-Advanced
+~5 min read | Beginner
 ```
 
 ````
@@ -111,8 +79,6 @@ Compute snow accumulation. Analyze the December 2025 Illinois winter storm. Appl
 :maxdepth: 1
 
 1.NEXRAD-KLOT-Demo
-2.QVP-Workflow-Comparison
-3.QPE-Snow-Storm
 ```
 
 ---
@@ -168,7 +134,7 @@ A dataset-level abstraction that aggregates individual radar files into a single
 | **QVP Computation** | 38.7 minutes | 23 seconds | **100x faster** |
 | **Total Time (1 week)** | 77.2 minutes | 24.5 seconds | **189x faster** |
 
-*Benchmark: 1 week of NEXRAD KLOT data (92 GB, 3,888 files). See [Workflow Comparison notebook](2.QVP-Workflow-Comparison) for details.*
+*Benchmark: 1 week of NEXRAD KLOT data (92 GB, 3,888 files).*
 
 ---
 
