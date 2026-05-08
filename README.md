@@ -16,7 +16,7 @@
 
 ## Start here
 
-**[Notebook 1 — open weather radar archives in 5 lines →](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html)**
+**[Notebook 1 — open weather radar archives in 5 lines of code →](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html)**
 
 Connect to the public [`s3://nexrad-arco`](https://registry.opendata.aws/nexrad-arco/) bucket on AWS, open the NEXRAD KLOT (Chicago) archive as one `xarray.DataTree`, and visualize a polarimetric scan. No downloads, no credentials.
 
@@ -28,7 +28,17 @@ Connect to the public [`s3://nexrad-arco`](https://registry.opendata.aws/nexrad-
 |---|---|
 | [**1. NEXRAD KLOT demo**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Open weather radar archives in 5 lines — AWS Open Data Registry entry point. |
 | [**2. QVP workflow comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | **Paper reproduction.** Reproduce Ryzhkov et al. (2016); benchmark ARCO vs file-based access. |
-| [**3. QPE snow storm**](https://atmoscale.github.io/radar-datatree/3.QPE-Snow-Storm.html) | Snow accumulation for the December 2025 Illinois winter storm. |
+
+## Reproducing the paper
+
+[Notebook 2 — QVP Workflow Comparison](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) is the laptop-runnable companion to [Ladino-Rincón & Nesbitt (2025)](https://doi.org/10.48550/arXiv.2510.24943). It reproduces Figure 4 of [Ryzhkov et al. (2016)](https://doi.org/10.1175/JTECH-D-15-0020.1) for the May 20 2011 KVNX MCS, computing the QVP via two paths in one notebook and asserting numerical equivalence between them.
+
+| Path | What it does | Wall-clock (laptop) |
+|---|---|---|
+| **Traditional** | Downloads ~55 NEXRAD Level II files, decodes, concatenates | ~6 min |
+| **ARCO streaming** | `engine="rustytree"` over `s3://nexrad-arco/KVNX` | ~10 s |
+
+The paper reports 6.5 s ARCO / 308 s file-based on EC2 `m5.xlarge` — laptop numbers come in roughly the same shape.
 
 ## Install
 

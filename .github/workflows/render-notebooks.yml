@@ -75,7 +75,11 @@ jobs:
 
       - name: Build documentation with Sphinx/MyST-NB
         run: |
-          uv run sphinx-build -b html docs _build/html
+          # -j auto runs notebook execution in parallel across cores. ubuntu-latest
+          # has 2 vCPUs, so notebooks 1 and 2 (and the future notebook 3) execute
+          # concurrently. Combined with nb_execution_mode="cache", only notebooks
+          # whose source actually changed re-run.
+          uv run sphinx-build -j auto -b html docs _build/html
 
           # Copy notebook images to build output
           cp -r notebooks/*.png _build/html/ 2>/dev/null || true

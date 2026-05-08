@@ -4,6 +4,10 @@
 :align: center
 ```
 
+```{div} text-center
+*Companion code for [Ladino-Rincón & Nesbitt (2025), arXiv:2510.24943](https://doi.org/10.48550/arXiv.2510.24943).*
+```
+
 ---
 
 ## What is radar-datatree?
@@ -28,11 +32,11 @@ The repo is being refactored notebook-by-notebook against the new `engine="rusty
 :link-type: doc
 :class-card: sd-bg-light
 
-**1. Open NEXRAD radar archives in 5 lines with radar-datatree**
+**1. Open weather radar archives in 5 lines of code**
 
-The AWS Open Data Registry demo. Connect to `s3://nexrad-arco`, open the NEXRAD KLOT (Chicago, IL) archive as one `xarray.DataTree`, and visualize a polarimetric scan — without downloading a file.
+Connect to NEXRAD on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), open the KLOT (Chicago, IL) archive as one `xarray.DataTree`, and visualize a polarimetric scan — modeled after Earthmover's [ERA5 sample-data demo](https://docs.earthmover.io/sample-data/era5).
 
-- Anonymous icechunk session on AWS
+- Anonymous icechunk session on `s3://nexrad-arco`
 - Open with `engine="rustytree"`
 - 2×2 polarimetric finale
 
@@ -47,11 +51,12 @@ The AWS Open Data Registry demo. Connect to `s3://nexrad-arco`, open the NEXRAD 
 
 **2. Reproduce Ryzhkov et al. (2016): traditional vs ARCO**
 
-Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS using both the traditional file-download workflow and the ARCO streaming workflow, and measure the gap. ~6 minutes traditional vs ~10 seconds ARCO.
+Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the traditional file-download workflow and ARCO streaming, and measure the gap. ~6 minutes traditional vs ~10 seconds ARCO on the same useful bytes.
 
 - KVNX (MC3E campaign), OSN anonymous
 - Traditional: 55 NEXRAD files downloaded + decoded
 - ARCO: streaming via `engine="rustytree"`
+- Numerical-equivalence assertion across both paths
 
 +++
 ~7 min read + ~6 min run | Intermediate

@@ -67,7 +67,9 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
-    "QVP-Workflow-Benchmark.ipynb",  # Benchmark notebook for paper, not rendered in docs
+    # Claude Code's per-project agent memory lives at docs/.claude/agent-memory/.
+    # Without this guard sphinx renders MEMORY.md into the published site.
+    ".claude",
     # Hidden until refactored against rustytree + xarray 2026.4. Each
     # comes back in its own PR as the rewrite lands.
     "3.QPE-Snow-Storm.ipynb",
