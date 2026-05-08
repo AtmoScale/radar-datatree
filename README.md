@@ -28,6 +28,7 @@ Connect to the public [`s3://nexrad-arco`](https://registry.opendata.aws/nexrad-
 |---|---|
 | [**1. NEXRAD KLOT demo**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Open weather radar archives in 5 lines — AWS Open Data Registry entry point. |
 | [**2. QVP workflow comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | **Paper reproduction.** Reproduce Ryzhkov et al. (2016); benchmark ARCO vs file-based access. |
+| [**3. QPE scaling benchmark**](https://atmoscale.github.io/radar-datatree/3.QPE-Scaling-Benchmark.html) | Marshall–Palmer rainfall accumulation, 1 day live + 7d/30d/6mo cluster-recommended templates. |
 
 ## Reproducing the paper
 
