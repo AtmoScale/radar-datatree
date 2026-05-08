@@ -14,6 +14,9 @@ on:
       - 'notebooks/**'
       - 'docs/**'
       - 'images/**'
+      # Workflow-file-only PRs (like the cold-cache fix in PR #24) must
+      # also trigger CI so the workflow itself is validated against PR diffs.
+      - '.github/workflows/render-notebooks.yml'
   workflow_dispatch:  # Allow manual triggering
 
 # Cancel previous runs on the same PR/branch
