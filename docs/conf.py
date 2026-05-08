@@ -71,8 +71,10 @@ exclude_patterns = [
     # Without this guard sphinx renders MEMORY.md into the published site.
     ".claude",
     # Hidden until refactored against rustytree + xarray 2026.4. Each
-    # comes back in its own PR as the rewrite lands.
-    "3.QPE-Snow-Storm.ipynb",
+    # comes back in its own PR as the rewrite lands. (3.QPE-Snow-Storm
+    # was retired here — the December 2025 IL snow-storm dataset is not
+    # currently available; the QPE story now lives in
+    # 3.QPE-Scaling-Benchmark.ipynb, the paper companion.)
     "4.Basin-Precipitation-Monitoring.ipynb",
     "5.Rainfall-QPE-Marshall-Palmer.ipynb",
 ]

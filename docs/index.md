@@ -62,6 +62,23 @@ Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the trad
 ~7 min read + ~6 min run | Intermediate
 ```
 
+```{grid-item-card}
+:link: 3.QPE-Scaling-Benchmark
+:link-type: doc
+:class-card: sd-bg-light
+
+**3. QPE scaling: from hours to months**
+
+Marshall–Palmer Z–R rainfall accumulation over the May 20, 2011 KVNX MCS, run live for the 1-day window. Templates for 7-day, 30-day, and 6-month windows are included as cluster-recommended copy-paste blocks (the file-based 6-month run is ~10 hours).
+
+- KVNX, sweep_0 (~0.5°), Marshall–Palmer (a=200, b=1.6)
+- ARCO live: 1-day accumulation map (Cartopy)
+- Cluster templates: 7d / 30d / 6mo + scaling figures
+
++++
+~5 min read + ~1 min run | Intermediate
+```
+
 ````
 
 ```{toctree}
@@ -70,6 +87,7 @@ Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the trad
 
 1.NEXRAD-KLOT-Demo
 2.QVP-Workflow-Comparison
+3.QPE-Scaling-Benchmark
 ```
 
 ---
