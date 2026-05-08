@@ -75,11 +75,13 @@ jobs:
 
       - name: Build documentation with Sphinx/MyST-NB
         run: |
-          # -j auto runs notebook execution in parallel across cores. ubuntu-latest
-          # has 2 vCPUs, so notebooks 1 and 2 (and the future notebook 3) execute
-          # concurrently. Combined with nb_execution_mode="cache", only notebooks
-          # whose source actually changed re-run.
-          uv run sphinx-build -j auto -b html docs _build/html
+          # Serial build. `-j auto` causes a cold-cache race: parallel workers
+          # try to CREATE TABLE nbproject in the jupyter_cache SQLite at the
+          # same time and one of them fails with "table already exists" (CI
+          # run #25555606153). Parallelism returns in Phase 7 once
+          # actions/cache warm-starts _build/.jupyter_cache/ between runs,
+          # so workers always find the SQLite already initialized.
+          uv run sphinx-build -b html docs _build/html
 
           # Copy notebook images to build output
           cp -r notebooks/*.png _build/html/ 2>/dev/null || true
