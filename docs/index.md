@@ -1,3 +1,6 @@
+{.rdt-sr-only}
+# radar-datatree
+
 :::{div} rdt-hero
 
 ```{image} /_static/logo-banner.png
