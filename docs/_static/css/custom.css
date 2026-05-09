@@ -1,0 +1,7 @@
+/* radar-datatree custom CSS — Phase 1 placeholder.
+ * Real design tokens, hero, and card styles land in Phase 3.
+ * This rule exists only to confirm Sphinx is serving the file.
+ */
+:root {
+  --rdt-loaded: 1;
+}
