@@ -32,7 +32,7 @@ Connect to the public [`s3://nexrad-arco`](https://registry.opendata.aws/nexrad-
 
 ## Reproducing the paper
 
-[Notebook 2 — QVP Workflow Comparison](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) is the laptop-runnable companion to [Ladino-Rincón & Nesbitt (2025)](https://doi.org/10.48550/arXiv.2510.24943). It reproduces Figure 4 of [Ryzhkov et al. (2016)](https://doi.org/10.1175/JTECH-D-15-0020.1) for the May 20 2011 KVNX MCS, computing the QVP via two paths in one notebook and asserting numerical equivalence between them.
+[Notebook 2 — QVP Workflow Comparison](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) is the laptop-runnable companion to *Ladino-Rincón et al.* (2026, in preparation; earlier preprint: [arXiv:2510.24943](https://doi.org/10.48550/arXiv.2510.24943)). It reproduces Figure 4 of [Ryzhkov et al. (2016)](https://doi.org/10.1175/JTECH-D-15-0020.1) for the May 20 2011 KVNX MCS, computing the QVP via two paths in one notebook and asserting numerical equivalence between them.
 
 | Path | What it does | Wall-clock (laptop) |
 |---|---|---|
@@ -54,6 +54,12 @@ uv sync
 Recommended: [uv](https://docs.astral.sh/uv/). Conda alternative: `conda env create -f environment.yml`.
 
 ## Citation
+
+**Forthcoming paper (in preparation):**
+
+> Ladino-Rincón, A., et al. (2026). *Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives.* (Manuscript in preparation.)
+
+**Earlier preprint:**
 
 > Ladino-Rincón, A., & Nesbitt, S. W. (2025). *Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives.* arXiv:2510.24943. https://doi.org/10.48550/arXiv.2510.24943
 

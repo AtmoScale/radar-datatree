@@ -1,38 +1,477 @@
-/* radar-datatree custom CSS.
- * Phase 3 will add design tokens, hero treatment, and card hover.
+/* radar-datatree custom CSS — Phase 3 visual polish.
+ * Layered on top of pydata-sphinx-theme + sphinx-book-theme:
+ *   - Brand tokens (light + dark) pulled from the logo
+ *   - Distinctive typography (Bricolage Grotesque / Inter Tight / JetBrains Mono)
+ *   - Hero treatment + 3-CTA card design
+ *   - Branded code blocks
+ *   - Sidebar polish + Phase 1/2 layout fixes preserved below
  */
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+/* ============================================================
+ * 1. Brand tokens
+ * ============================================================ */
+
 :root {
-  --rdt-loaded: 1;
+  --rdt-teal-500: #13B5EA;
+  --rdt-teal-700: #0E7490;
+  --rdt-navy-900: #0F2F4D;
+  --rdt-green-500: #5BB85B;
+  --rdt-orange-500: #F08F2E;
+  --rdt-bg: #FFFFFF;
+  --rdt-bg-elevated: #F6FAFC;
+  --rdt-border: #E2E8F0;
+  --rdt-text-muted: #4A5C6E;
+
+  /* Typography stacks */
+  --rdt-font-display: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+  --rdt-font-body: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --rdt-font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
-/* Cap the sidebar logo. The brand icon (logo.png) is ~1069x1008,
- * so without a constraint sphinx_book_theme renders it at full sidebar
- * width, towering over the in-page banner.
- */
+html[data-theme="dark"] {
+  --rdt-teal-500: #3FC8F2;
+  --rdt-teal-700: #67D6F4;
+  --rdt-navy-900: #E5EEF5;
+  --rdt-green-500: #7FCB7F;
+  --rdt-orange-500: #FFA94D;
+  --rdt-bg: #0B1220;
+  --rdt-bg-elevated: #101828;
+  --rdt-border: #1F2A3A;
+  --rdt-text-muted: #94A3B8;
+}
+
+/* Bridge brand tokens into pst's variables so theme components inherit
+ * them too (links, accents, focus rings, etc.). */
+:root {
+  --pst-color-primary: var(--rdt-teal-500);
+  --pst-color-secondary: var(--rdt-teal-700);
+  --pst-color-link: var(--rdt-teal-700);
+  --pst-color-link-hover: var(--rdt-teal-500);
+  --pst-color-accent: var(--rdt-orange-500);
+}
+
+html[data-theme="dark"] {
+  --pst-color-link: var(--rdt-teal-500);
+  --pst-color-link-hover: var(--rdt-teal-700);
+}
+
+/* ============================================================
+ * 2. Typography
+ * ============================================================ */
+
+body, .bd-content {
+  font-family: var(--rdt-font-body);
+  font-feature-settings: "ss01", "cv11";
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* Quicksand reads optically smaller than typical sans, so heading sizes
+ * get a slight bump and letter-spacing stays neutral (Quicksand's
+ * rounded letterforms don't want negative tracking). */
+h1, h2, h3, h4, h5, h6,
+.bd-content h1, .bd-content h2, .bd-content h3,
+.bd-content h4, .bd-content h5, .bd-content h6 {
+  font-family: var(--rdt-font-display);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+h1, .bd-content h1 { font-weight: 700; }
+h2, .bd-content h2 { margin-top: 2.5rem; font-weight: 700; }
+
+code, kbd, samp, pre, tt,
+.bd-content code, .bd-content pre, .bd-content tt {
+  font-family: var(--rdt-font-mono);
+  font-feature-settings: "calt", "liga";
+}
+
+/* ============================================================
+ * 3. Hero — asymmetric layout + radar-sweep signature
+ * ============================================================ */
+
+.rdt-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 4rem 2rem 4.25rem;
+  margin: -1rem -1rem 3.5rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(19, 181, 234, 0.04), transparent 60%),
+    var(--rdt-bg-elevated);
+  border: 1px solid var(--rdt-border);
+}
+
+html[data-theme="dark"] .rdt-hero {
+  background:
+    linear-gradient(180deg, rgba(63, 200, 242, 0.06), transparent 60%),
+    var(--rdt-bg-elevated);
+}
+
+/* Radar-sweep signature: a soft conic-gradient cone anchored off the
+ * top-right corner, slowly rotating. Echoes the radar sweep in the
+ * brand mark. Reduced-motion users see it as a static glow. */
+.rdt-hero::before {
+  content: "";
+  position: absolute;
+  top: -45%;
+  right: -25%;
+  width: 75%;
+  aspect-ratio: 1;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(19, 181, 234, 0.32) 18deg,
+    rgba(19, 181, 234, 0.10) 42deg,
+    transparent 60deg,
+    transparent 360deg
+  );
+  border-radius: 50%;
+  filter: blur(36px);
+  pointer-events: none;
+  z-index: 0;
+  animation: rdt-radar-sweep 18s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+html[data-theme="dark"] .rdt-hero::before {
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(63, 200, 242, 0.40) 18deg,
+    rgba(63, 200, 242, 0.14) 42deg,
+    transparent 60deg,
+    transparent 360deg
+  );
+}
+
+@keyframes rdt-radar-sweep {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rdt-hero::before { animation: none; }
+}
+
+.rdt-hero-banner {
+  display: block !important;
+  width: 100%;
+  height: auto;
+  max-width: 640px;
+  margin: 0 auto !important;
+  position: relative;
+  z-index: 1;
+}
+
+.rdt-hero .rdt-tagline {
+  position: relative;
+  z-index: 1;
+  font-family: var(--rdt-font-body);
+  font-size: 1rem;
+  color: var(--rdt-text-muted);
+  letter-spacing: 0.005em;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 60ch;
+}
+
+.rdt-hero .rdt-tagline a {
+  color: var(--rdt-teal-700);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+
+html[data-theme="dark"] .rdt-hero .rdt-tagline a {
+  color: var(--rdt-teal-500);
+}
+
+/* Tighter padding on small viewports. */
+@media (max-width: 720px) {
+  .rdt-hero {
+    padding: 2.5rem 1.25rem 2.75rem;
+  }
+  .rdt-hero::before {
+    top: -25%;
+    right: -35%;
+    width: 100%;
+  }
+}
+
+/* The “What is radar-datatree?” paragraph sits right under the hero. */
+.bd-content > section > p:first-of-type {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ============================================================
+ * 4. Cards (CTA + tutorials)
+ * ============================================================ */
+
+/* Base card brand treatment — applies to any sphinx-design card. */
+.bd-content .sd-card {
+  border: 1px solid var(--rdt-border);
+  border-radius: 0.875rem;
+  background-color: var(--rdt-bg);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  overflow: hidden;
+}
+
+.bd-content .sd-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--rdt-teal-500);
+  box-shadow:
+    0 14px 28px -12px rgba(15, 47, 77, 0.18),
+    0 0 0 1px rgba(19, 181, 234, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bd-content .sd-card,
+  .bd-content .sd-card:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Top accent bar — top corners rounded to match the card body, since
+ * the named cards (.rdt-cta-card, .rdt-tutorial-card) drop overflow:
+ * hidden so the chip badge can float past the card edge. */
+.bd-content .sd-card::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rdt-teal-500), var(--rdt-green-500));
+  opacity: 0.85;
+  border-top-left-radius: calc(0.875rem - 1px);
+  border-top-right-radius: calc(0.875rem - 1px);
+}
+
+.bd-content .sd-card:hover::before {
+  opacity: 1;
+}
+
+.bd-content .sd-card .sd-card-body,
+.bd-content .sd-card .sd-card-text {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.bd-content .sd-card .sd-card-footer {
+  border-top: 1px solid var(--rdt-border);
+  background-color: transparent;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--rdt-text-muted);
+}
+
+/* Card title (was "1 · Install" etc., now bare "Install" — the
+ * numbered chip badge below provides the sequence cue). */
+.bd-content .sd-card strong {
+  color: var(--rdt-navy-900);
+  font-family: var(--rdt-font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+html[data-theme="dark"] .bd-content .sd-card strong {
+  color: var(--rdt-navy-900);
+}
+
+/* Numbered chip badge — floats off the top-right of each CTA / tutorial
+ * card. Two named counters so CTA cards and tutorial cards each restart
+ * at 1. The .bd-article scope resets both counters once per page. */
+.bd-article {
+  counter-reset: rdt-cta-num rdt-tut-num;
+}
+
+.rdt-cta-card { counter-increment: rdt-cta-num; }
+.rdt-tutorial-card { counter-increment: rdt-tut-num; }
+
+.bd-content .rdt-cta-card,
+.bd-content .rdt-tutorial-card {
+  position: relative;
+  overflow: visible;
+}
+
+.rdt-cta-card::after,
+.rdt-tutorial-card::after {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding: 0 0.55rem;
+
+  font-family: var(--rdt-font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+
+  background: var(--rdt-teal-500);
+  border: 2px solid var(--rdt-bg);
+  border-radius: 999px;
+  box-shadow: 0 6px 12px -4px rgba(15, 47, 77, 0.25);
+
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.rdt-cta-card::after { content: counter(rdt-cta-num, decimal-leading-zero); }
+.rdt-tutorial-card::after { content: counter(rdt-tut-num, decimal-leading-zero); }
+
+.rdt-cta-card:hover::after,
+.rdt-tutorial-card:hover::after {
+  transform: scale(1.06);
+  background: var(--rdt-teal-700);
+}
+
+html[data-theme="dark"] .rdt-cta-card::after,
+html[data-theme="dark"] .rdt-tutorial-card::after {
+  color: #0B1220;
+  border-color: var(--rdt-bg-elevated);
+}
+
+/* ============================================================
+ * 5. Code blocks
+ * ============================================================ */
+
+.bd-content div[class*="highlight"],
+.bd-content pre {
+  border-radius: 0.75rem;
+  border: 1px solid var(--rdt-border);
+  border-left: 4px solid var(--rdt-teal-500);
+  background-color: var(--rdt-bg-elevated);
+}
+
+.bd-content div[class*="highlight"] pre {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  padding: 1rem 1.25rem;
+  line-height: 1.65;
+  font-size: 0.9375rem;
+}
+
+/* Inline code stays subtle */
+.bd-content :not(pre) > code {
+  background-color: var(--rdt-bg-elevated);
+  border: 1px solid var(--rdt-border);
+  color: var(--rdt-teal-700);
+  padding: 0.1em 0.4em;
+  border-radius: 0.3em;
+  font-size: 0.92em;
+}
+
+html[data-theme="dark"] .bd-content :not(pre) > code {
+  color: var(--rdt-teal-500);
+}
+
+/* sphinx-copybutton tint */
+.bd-content button.copybtn {
+  border-radius: 0.4em;
+  opacity: 0.6;
+  transition: opacity 150ms ease, background-color 150ms ease;
+}
+.bd-content button.copybtn:hover {
+  opacity: 1;
+  background-color: var(--rdt-bg-elevated);
+}
+
+/* ============================================================
+ * 6. Sidebar polish
+ * ============================================================ */
+
+.bd-sidebar-primary .nav-link.active {
+  color: var(--rdt-teal-700);
+  font-weight: 600;
+  border-left: 3px solid var(--rdt-teal-500);
+  padding-left: calc(1rem - 3px);
+}
+
+html[data-theme="dark"] .bd-sidebar-primary .nav-link.active {
+  color: var(--rdt-teal-500);
+}
+
+.bd-sidebar-primary .nav-link:hover {
+  color: var(--rdt-teal-700);
+}
+
+.bd-sidebar-primary .caption,
+.bd-sidebar-primary p.caption {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--rdt-text-muted);
+  margin-top: 1.25rem;
+}
+
+.bd-sidebar-primary .bd-sidenav .toctree-l1 > a {
+  font-weight: 500;
+}
+
+/* ============================================================
+ * 7. Misc — links, dividers, secondary sidebar
+ * ============================================================ */
+
+.bd-content a:not(.sd-card):not(.btn):not(.headerlink) {
+  color: var(--rdt-teal-700);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+html[data-theme="dark"] .bd-content a:not(.sd-card):not(.btn):not(.headerlink) {
+  color: var(--rdt-teal-500);
+}
+
+/* Tighter hr */
+.bd-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rdt-border), transparent);
+  margin: 2.5rem 0;
+}
+
+/* Secondary sidebar (right "Contents" pane) — quieter typography */
+.bd-sidebar-secondary {
+  font-size: 0.85rem;
+}
+
+.bd-sidebar-secondary .toc-entry > a {
+  color: var(--rdt-text-muted);
+}
+
+.bd-sidebar-secondary .toc-entry > a.active,
+.bd-sidebar-secondary .toc-entry > a:hover {
+  color: var(--rdt-teal-700);
+}
+
+/* ============================================================
+ * 8. Phase 1/2 layout & chrome fixes (preserved)
+ * ============================================================ */
+
 img.logo__image {
   max-height: 80px;
   width: auto;
   margin: 0 auto;
 }
 
-/* Suppress the always-on sidebar scrollbar.
- *
- * Three things conspire to make pydata-sphinx-theme + sphinx-book-theme
- * show a scrollbar in the primary sidebar even when the nav fits:
- *  1. sphinx-book-theme.css sets `max-height: 100vh; padding: 1rem`
- *     without `box-sizing: border-box`, so 2rem of padding spills past
- *     the viewport.
- *  2. `.sidebar-primary-items__end` has `margin-bottom: 1em` even when
- *     empty.
- *  3. `#rtd-footer-container` is a sticky-positioned hook for Read The
- *     Docs analytics. We deploy on GitHub Pages, so it stays empty —
- *     but the theme still injects the element.
- *
- * Border-box closes (1); resetting `__end` margin-bottom closes (2);
- * hiding the rtd container closes (3). We also suppress the scrollbar
- * visually as a final guarantee — wheel/touch/keyboard scroll still
- * works on viewports small enough that the nav genuinely overflows.
- */
 .bd-sidebar-primary {
   box-sizing: border-box;
   scrollbar-width: none;
@@ -50,12 +489,6 @@ img.logo__image {
   display: none;
 }
 
-/* Make the layout fluid. sphinx_book_theme caps the overall page at
- * 88rem and the article column tighter still, leaving large empty
- * gutters on wide monitors. Drop the page cap entirely and let the
- * article column scale with the viewport, with a soft upper bound to
- * keep prose line-length readable on ultra-wide displays.
- */
 .bd-page-width {
   max-width: none;
 }
