@@ -53,7 +53,17 @@ html_theme_options = {
     "use_repository_button": True,
     "use_download_button": True,
     "show_toc_level": 2,
+    "logo": {
+        "image_light": "_static/logo.png",
+        "image_dark": "_static/logo-dark.png",
+        "alt_text": "radar-datatree",
+    },
 }
+
+# Static assets (logos, favicon, custom CSS)
+html_static_path = ["_static"]
+html_css_files = ["css/custom.css"]
+html_favicon = "_static/favicon.png"
 
 # Source settings
 source_suffix = {
