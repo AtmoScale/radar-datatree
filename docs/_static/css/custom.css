@@ -1,7 +1,65 @@
-/* radar-datatree custom CSS — Phase 1 placeholder.
- * Real design tokens, hero, and card styles land in Phase 3.
- * This rule exists only to confirm Sphinx is serving the file.
+/* radar-datatree custom CSS.
+ * Phase 3 will add design tokens, hero treatment, and card hover.
  */
 :root {
   --rdt-loaded: 1;
+}
+
+/* Cap the sidebar logo. The brand icon (logo.png) is ~1069x1008,
+ * so without a constraint sphinx_book_theme renders it at full sidebar
+ * width, towering over the in-page banner.
+ */
+img.logo__image {
+  max-height: 80px;
+  width: auto;
+  margin: 0 auto;
+}
+
+/* Suppress the always-on sidebar scrollbar.
+ *
+ * Three things conspire to make pydata-sphinx-theme + sphinx-book-theme
+ * show a scrollbar in the primary sidebar even when the nav fits:
+ *  1. sphinx-book-theme.css sets `max-height: 100vh; padding: 1rem`
+ *     without `box-sizing: border-box`, so 2rem of padding spills past
+ *     the viewport.
+ *  2. `.sidebar-primary-items__end` has `margin-bottom: 1em` even when
+ *     empty.
+ *  3. `#rtd-footer-container` is a sticky-positioned hook for Read The
+ *     Docs analytics. We deploy on GitHub Pages, so it stays empty —
+ *     but the theme still injects the element.
+ *
+ * Border-box closes (1); resetting `__end` margin-bottom closes (2);
+ * hiding the rtd container closes (3). We also suppress the scrollbar
+ * visually as a final guarantee — wheel/touch/keyboard scroll still
+ * works on viewports small enough that the nav genuinely overflows.
+ */
+.bd-sidebar-primary {
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+.bd-sidebar-primary::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-primary-items__end {
+  margin-bottom: 0;
+}
+
+#rtd-footer-container {
+  display: none;
+}
+
+/* Make the layout fluid. sphinx_book_theme caps the overall page at
+ * 88rem and the article column tighter still, leaving large empty
+ * gutters on wide monitors. Drop the page cap entirely and let the
+ * article column scale with the viewport, with a soft upper bound to
+ * keep prose line-length readable on ultra-wide displays.
+ */
+.bd-page-width {
+  max-width: none;
+}
+
+.bd-article-container {
+  max-width: clamp(60rem, 90vw, 100rem);
 }

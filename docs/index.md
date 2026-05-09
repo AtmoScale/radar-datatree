@@ -68,6 +68,7 @@ Three runnable notebooks — from a beginner-friendly demo to paper reproduction
 ````
 
 ```{toctree}
+:hidden:
 :maxdepth: 1
 :caption: User guide
 
