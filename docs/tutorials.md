@@ -12,9 +12,9 @@ The repo is being refactored notebook-by-notebook against the new `engine="rusty
 ```{grid-item-card}
 :link: 1.NEXRAD-KLOT-Demo
 :link-type: doc
-:class-card: sd-bg-light
+:class-card: rdt-tutorial-card
 
-**1. Open weather radar archives in 5 lines of code**
+**Open weather radar archives in 5 lines of code**
 
 Connect to NEXRAD on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), open the KLOT (Chicago, IL) archive as one `xarray.DataTree`, and visualize a polarimetric scan — modeled after Earthmover's [ERA5 sample-data demo](https://docs.earthmover.io/sample-data/era5).
 
@@ -29,9 +29,9 @@ Connect to NEXRAD on the [AWS Open Data Registry](https://registry.opendata.aws/
 ```{grid-item-card}
 :link: 2.QVP-Workflow-Comparison
 :link-type: doc
-:class-card: sd-bg-light
+:class-card: rdt-tutorial-card
 
-**2. Reproduce Ryzhkov et al. (2016): traditional vs ARCO**
+**Reproduce Ryzhkov et al. (2016): traditional vs ARCO**
 
 Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the traditional file-download workflow and ARCO streaming, and measure the gap. ~6 minutes traditional vs ~10 seconds ARCO on the same useful bytes.
 
@@ -47,9 +47,9 @@ Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the trad
 ```{grid-item-card}
 :link: 3.QPE-Scaling-Benchmark
 :link-type: doc
-:class-card: sd-bg-light
+:class-card: rdt-tutorial-card
 
-**3. QPE scaling: from hours to months**
+**QPE scaling: from hours to months**
 
 Marshall–Palmer Z–R rainfall accumulation over the May 20, 2011 KVNX MCS, run live for the 1-day window. Templates for 7-day, 30-day, and 6-month windows are included as cluster-recommended copy-paste blocks (the file-based 6-month run is ~10 hours).
 

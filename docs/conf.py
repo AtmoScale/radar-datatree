@@ -58,6 +58,8 @@ html_theme_options = {
         "image_dark": "_static/logo-dark.png",
         "alt_text": "radar-datatree",
     },
+    "pygments_light_style": "tango",
+    "pygments_dark_style": "monokai",
 }
 
 # Static assets (logos, favicon, custom CSS)
