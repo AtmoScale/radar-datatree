@@ -463,7 +463,28 @@ html[data-theme="dark"] .bd-content a:not(.sd-card):not(.btn):not(.headerlink) {
 }
 
 /* ============================================================
- * 8. Phase 1/2 layout & chrome fixes (preserved)
+ * 8. Utilities
+ * ============================================================ */
+
+/* Visually hidden but reachable by screen readers and the theme's
+ * prev/next nav. The landing page uses this on its H1 so the banner
+ * image stays the visual title while accessibility + nav links still
+ * have a real heading to read.
+ */
+.rdt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+ * 9. Phase 1/2 layout & chrome fixes (preserved)
  * ============================================================ */
 
 img.logo__image {

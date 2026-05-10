@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath("../notebooks"))
 
 project = "Radar DataTree"
 author = "Alfonso Ladino-Rincón"
-copyright = "2025, Alfonso Ladino-Rincón"
+copyright = "2026, AtmoScale"
 
 extensions = [
     "myst_nb",
