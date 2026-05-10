@@ -38,28 +38,7 @@ No multi-gigabyte downloads required — data streams directly from the cloud.
 
 ## Verify your install
 
-Drop this into a Python session (or a fresh notebook cell) — it opens the public NEXRAD KLOT archive on AWS and prints the Volume Coverage Patterns it sees:
-
-```python
-import xarray as xr
-import icechunk
-
-storage = icechunk.s3_storage(
-    bucket="nexrad-arco",
-    prefix="KLOT",
-    region="us-east-1",
-    anonymous=True,
-)
-session = icechunk.Repository.open(storage).readonly_session("main")
-
-dt = xr.open_datatree(session.store, engine="rustytree", chunks=None)
-print(sorted(dt.children))
-# → ['VCP-12', 'VCP-212', 'VCP-34', ...]
-```
-
-```{note}
-If the print shows `VCP-*` nodes, you're ready. Head to {doc}`Quickstart <quickstart>` for the next step, or jump straight into {doc}`Notebook 1 <1.NEXRAD-KLOT-Demo>` for the full polarimetric walkthrough.
-```
+Run the {doc}`Quickstart <quickstart>` snippet in a Python session (or a fresh notebook cell). If it prints a list of `VCP-*` nodes, your install is healthy — every dependency loaded, anonymous S3 reads work, and you're already streaming from the public archive. Then jump straight into {doc}`Notebook 1 <1.NEXRAD-KLOT-Demo>` for the full polarimetric walkthrough.
 
 ## What got installed
 

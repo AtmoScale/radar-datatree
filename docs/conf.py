@@ -30,6 +30,9 @@ nb_execution_timeout = 600
 # rendered on the live page (PR #19's notebook 2 import failure shipped
 # this way).
 nb_execution_raise_on_error = True
+# Auto-register cross-ref targets for headings up to H2 so links like
+# [Foo](other.md#some-heading) validate without manual (foo)= markers.
+myst_heading_anchors = 2
 myst_enable_extensions = [
     "attrs_block",
     "attrs_inline",
