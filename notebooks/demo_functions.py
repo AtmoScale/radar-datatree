@@ -954,6 +954,167 @@ def print_workflow_comparison(
     print("=" * 75)
 
 
+def plot_workflow_comparison(metrics, *, save_path=None, dpi=150):
+    """Render the 3-panel benchmark figure for the QVP workflow comparison.
+
+    Panel (a)  Total processing time — traditional file-download workflow vs
+               ARCO streaming. Annotated with the speedup ratio.
+    Panel (b)  Memory footprint — traditional peak RAM vs ARCO bytes
+               loaded. Annotated with the memory-reduction ratio.
+    Panel (c)  Traditional-workflow component breakdown (download+decode,
+               concat, QVP compute) with ARCO total time as a horizontal
+               reference line.
+
+    Bars use the Wong (2011) colorblind-safe palette; speedup annotations
+    use the same brand-green as the ARCO bars.
+
+    Parameters
+    ----------
+    metrics : dict
+        Nested dict already populated by the surrounding notebook cells.
+        Reads ``metrics["traditional"].{total_workflow_time, total_time,
+        concat_time, qvp_compute_time, peak_memory_mb}``,
+        ``metrics["arco"].{total_time, uncompressed_mb}``, and
+        ``metrics["speedup"]``. The ARCO/traditional memory ratio is
+        derived internally.
+    save_path : str | pathlib.Path | None, default None
+        If provided, ``fig.savefig(save_path, dpi=dpi, bbox_inches="tight")``.
+    dpi : int, default 150
+        DPI used when ``save_path`` is set.
+
+    Returns
+    -------
+    matplotlib.figure.Figure
+        The rendered figure (auto-displayed by the notebook backend).
+    """
+    cb = {  # Wong (2011) colorblind-safe palette
+        "blue": "#0072B2",
+        "green": "#009E73",
+        "orange": "#E69F00",
+        "purple": "#CC79A7",
+    }
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.titlesize": 12,
+            "axes.labelsize": 11,
+            "legend.fontsize": 10,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+        }
+    )
+
+    trad = metrics["traditional"]
+    arco = metrics["arco"]
+    speedup = metrics["speedup"]
+    memory_ratio = trad["peak_memory_mb"] / arco["uncompressed_mb"]
+
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+
+    # ---- Panel (a): time comparison -------------------------------------
+    times = [trad["total_workflow_time"], arco["total_time"]]
+    bars = axes[0].bar(
+        ["Traditional\n(file downloads)", "ARCO\n(data streaming)"],
+        times,
+        color=[cb["blue"], cb["green"]],
+        edgecolor="black",
+        linewidth=1.2,
+    )
+    axes[0].set_ylabel("Processing Time (seconds)")
+    axes[0].set_ylim(0, max(times) * 1.2)
+    for bar, value in zip(bars, times, strict=False):
+        axes[0].text(
+            bar.get_x() + bar.get_width() / 2.0,
+            bar.get_height() + max(times) * 0.02,
+            f"{value:.1f}s",
+            ha="center",
+            va="bottom",
+        )
+    axes[0].annotate(
+        f"~{speedup:.0f}x faster",
+        xy=(1, arco["total_time"] - max(times) * 0.03 + 35),
+        xytext=(0.5, trad["total_workflow_time"] * 0.6),
+        fontsize=11,
+        color=cb["green"],
+        arrowprops=dict(arrowstyle="->", color=cb["green"], lw=1.5),
+    )
+
+    # ---- Panel (b): memory comparison -----------------------------------
+    sizes = [trad["peak_memory_mb"], arco["uncompressed_mb"]]
+    bars = axes[1].bar(
+        ["Traditional\n(peak RAM)", "ARCO Stream\n(data loaded)"],
+        sizes,
+        color=[cb["blue"], cb["green"]],
+        edgecolor="black",
+        linewidth=1.2,
+    )
+    axes[1].set_ylabel("Memory / Data (MB)")
+    axes[1].set_ylim(0, max(sizes) * 1.2)
+    for bar, value in zip(bars, sizes, strict=False):
+        axes[1].text(
+            bar.get_x() + bar.get_width() / 2.0,
+            bar.get_height() + max(sizes) * 0.02,
+            f"{value:.0f} MB",
+            ha="center",
+            va="bottom",
+        )
+    axes[1].annotate(
+        f"~{memory_ratio:.0f}x less",
+        xy=(1, arco["uncompressed_mb"] - max(sizes) * 0.03 + 500),
+        xytext=(0.5, trad["peak_memory_mb"] * 0.6),
+        fontsize=11,
+        color=cb["green"],
+        arrowprops=dict(arrowstyle="->", color=cb["green"], lw=1.5),
+    )
+
+    # ---- Panel (c): traditional workflow breakdown ----------------------
+    trad_times = [trad["total_time"], trad["concat_time"], trad["qvp_compute_time"]]
+    bars = axes[2].bar(
+        ["Download\n+ Decode", "Concat", "QVP\nCompute"],
+        trad_times,
+        color=[cb["blue"], cb["orange"], cb["purple"]],
+        edgecolor="black",
+        linewidth=1.2,
+    )
+    axes[2].set_ylabel("Time (seconds)")
+    axes[2].set_ylim(0, max(trad_times) * 1.25)
+    for bar, value in zip(bars, trad_times, strict=False):
+        axes[2].text(
+            bar.get_x() + bar.get_width() / 2.0,
+            bar.get_height() + max(trad_times) * 0.02,
+            f"{value:.1f}s",
+            ha="center",
+            va="bottom",
+            fontsize=9,
+        )
+    axes[2].axhline(
+        y=arco["total_time"],
+        color=cb["green"],
+        linestyle="--",
+        linewidth=1.5,
+        label=f"ARCO total: {arco['total_time']:.1f}s",
+    )
+    axes[2].legend(loc="upper right")
+
+    # ---- Panel labels (a)/(b)/(c) ---------------------------------------
+    for ax, label in zip(axes, ["(a)", "(b)", "(c)"], strict=False):
+        ax.text(
+            0.05,
+            0.98,
+            label,
+            transform=ax.transAxes,
+            fontsize=12,
+            va="top",
+            ha="left",
+        )
+
+    fig.tight_layout()
+    if save_path is not None:
+        fig.savefig(save_path, dpi=dpi, bbox_inches="tight")
+    return fig
+
+
 def assert_qvp_equivalence(qvp_a, qvp_b, variables, tolerances):
     """Print per-variable max-abs-diff between two QVP dicts and raise
     ``AssertionError`` if any variable's diff exceeds its tolerance.
