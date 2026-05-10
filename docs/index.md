@@ -1,4 +1,3 @@
-{.rdt-sr-only}
 # radar-datatree
 
 :::{div} rdt-hero

@@ -262,15 +262,31 @@ html[data-theme="dark"] .rdt-hero .rdt-tagline a {
 
 .bd-content .sd-card .sd-card-body,
 .bd-content .sd-card .sd-card-text {
-  padding: 1.25rem 1.25rem 0.5rem;
+  padding: 1rem 1.1rem 0.4rem;
 }
 
 .bd-content .sd-card .sd-card-footer {
   border-top: 1px solid var(--rdt-border);
   background-color: transparent;
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1.1rem;
   font-size: 0.875rem;
   color: var(--rdt-text-muted);
+}
+
+/* Tutorial cards specifically — tighter still since the content was
+ * trimmed to one short paragraph + meta strip. */
+.bd-content .rdt-tutorial-card .sd-card-body,
+.bd-content .rdt-tutorial-card .sd-card-text {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.bd-content .rdt-tutorial-card .sd-card-text > p {
+  margin-bottom: 0.6rem;
+}
+
+.bd-content .rdt-tutorial-card .sd-card-text > p:last-of-type {
+  margin-bottom: 0;
 }
 
 /* Card title (was "1 · Install" etc., now bare "Install" — the
@@ -345,6 +361,66 @@ html[data-theme="dark"] .rdt-cta-card::after,
 html[data-theme="dark"] .rdt-tutorial-card::after {
   color: #0B1220;
   border-color: var(--rdt-bg-elevated);
+}
+
+/* Tutorial-card footer meta strip:
+ *   [Read] 5 min · [Run] ~1 min · {bdg-success}`Beginner`
+ * Mono labels in muted brand teal; tabular-nums so durations align. */
+.rdt-tutorial-card .sd-card-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--rdt-font-mono);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  color: var(--rdt-navy-900);
+}
+
+.rdt-tutorial-card .sd-card-footer .rdt-meta-label {
+  color: var(--rdt-teal-700);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  margin-right: 0.15rem;
+}
+
+html[data-theme="dark"] .rdt-tutorial-card .sd-card-footer .rdt-meta-label {
+  color: var(--rdt-teal-500);
+}
+
+/* sphinx-design badges in the meta strip — tighten so they sit on the
+ * baseline of the mono text instead of looking pasted in. */
+.rdt-tutorial-card .sd-card-footer .sd-badge {
+  font-family: var(--rdt-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* Page-load stagger on the tutorial-card grid: subtle 8px rise + fade,
+ * cascaded 80ms apart. Targets the .sd-col wrapper that sphinx-design
+ * places around each grid-item-card so :nth-of-type counts cards in
+ * grid order. Honors prefers-reduced-motion (no-preference only). */
+@media (prefers-reduced-motion: no-preference) {
+  .bd-content .sd-col-card .rdt-tutorial-card,
+  .bd-content [class*="sd-col"] .rdt-tutorial-card {
+    opacity: 0;
+    animation: rdt-card-rise 380ms cubic-bezier(0.2, 0.65, 0.2, 1) forwards;
+  }
+  .bd-content [class*="sd-col"]:nth-of-type(1) .rdt-tutorial-card { animation-delay: 0ms; }
+  .bd-content [class*="sd-col"]:nth-of-type(2) .rdt-tutorial-card { animation-delay: 80ms; }
+  .bd-content [class*="sd-col"]:nth-of-type(3) .rdt-tutorial-card { animation-delay: 160ms; }
+}
+
+@keyframes rdt-card-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================================================
@@ -471,7 +547,8 @@ html[data-theme="dark"] .bd-content a:not(.sd-card):not(.btn):not(.headerlink) {
  * image stays the visual title while accessibility + nav links still
  * have a real heading to read.
  */
-.rdt-sr-only {
+.rdt-sr-only,
+.bd-content #radar-datatree > h1:first-child {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -482,6 +559,14 @@ html[data-theme="dark"] .bd-content a:not(.sd-card):not(.btn):not(.headerlink) {
   white-space: nowrap;
   border: 0;
 }
+
+/* The landing section's H1 is what Sphinx uses for prev/next nav and
+ * page title — keep it in the DOM but hide it visually so the banner
+ * image stays the visual page header. Targeting the auto-generated
+ * section id (#radar-datatree, derived from the heading text) instead
+ * of putting {.rdt-sr-only} as an attrs_block before the heading,
+ * because attrs_block applies the class to the wrapping <section>
+ * which then hides the entire article body. */
 
 /* ============================================================
  * 9. Phase 1/2 layout & chrome fixes (preserved)

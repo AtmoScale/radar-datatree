@@ -1,12 +1,12 @@
 # Tutorials
 
-Three progressive notebooks — each runs end-to-end on the public archives, no credentials needed.
+Three runnable notebooks — each end-to-end on the public archives, no credentials. Take them in order; each one builds on what the last one taught.
 
-```{note}
-The repo is being refactored notebook-by-notebook against the new `engine="rustytree"` + xarray 2026.4 stack. The QPE / basin / rainfall tutorials return as each refactor lands.
-```
+:::{tip}
+Run [Verify your install](installation.md#verify-your-install) once before the first tutorial to confirm `import xarray, icechunk` and the connection to `s3://nexrad-arco` work in your environment.
+:::
 
-````{grid} 1 1 2 2
+````{grid} 1 1 3 3
 :gutter: 3
 
 ```{grid-item-card}
@@ -16,14 +16,10 @@ The repo is being refactored notebook-by-notebook against the new `engine="rusty
 
 **Open weather radar archives in 5 lines of code**
 
-Connect to NEXRAD on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), open the KLOT (Chicago, IL) archive as one `xarray.DataTree`, and visualize a polarimetric scan — modeled after Earthmover's [ERA5 sample-data demo](https://docs.earthmover.io/sample-data/era5).
-
-- Anonymous icechunk session on `s3://nexrad-arco`
-- Open with `engine="rustytree"`
-- 2×2 polarimetric finale
+Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/) as one `xarray.DataTree` and visualize a polarimetric scan.
 
 +++
-~5 min read | Beginner
+[Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-success}`Beginner`
 ```
 
 ```{grid-item-card}
@@ -33,15 +29,10 @@ Connect to NEXRAD on the [AWS Open Data Registry](https://registry.opendata.aws/
 
 **Reproduce Ryzhkov et al. (2016): traditional vs ARCO**
 
-Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the traditional file-download workflow and ARCO streaming, and measure the gap. ~6 minutes traditional vs ~10 seconds ARCO on the same useful bytes.
-
-- KVNX (MC3E campaign), OSN anonymous
-- Traditional: 55 NEXRAD files downloaded + decoded
-- ARCO: streaming via `engine="rustytree"`
-- Numerical-equivalence assertion across both paths
+Compute the QVP for the May 20, 2011 KVNX MCS via the traditional file workflow vs ARCO streaming and measure the gap — **~6 min vs ~10 s** on the same bytes.
 
 +++
-~7 min read + ~6 min run | Intermediate
+[Read]{.rdt-meta-label} 7 min · [Run]{.rdt-meta-label} ~6 min · {bdg-warning}`Intermediate`
 ```
 
 ```{grid-item-card}
@@ -51,14 +42,10 @@ Paper reproduction. Compute QVPs for the May 20, 2011 KVNX MCS via both the trad
 
 **QPE scaling: from hours to months**
 
-Marshall–Palmer Z–R rainfall accumulation over the May 20, 2011 KVNX MCS, run live for the 1-day window. Templates for 7-day, 30-day, and 6-month windows are included as cluster-recommended copy-paste blocks (the file-based 6-month run is ~10 hours).
-
-- KVNX, sweep_0 (~0.5°), Marshall–Palmer (a=200, b=1.6)
-- ARCO live: 1-day accumulation map (Cartopy)
-- Cluster templates: 7d / 30d / 6mo + scaling figures
+Marshall–Palmer Z–R rainfall accumulation, live for one day. Cluster-recommended copy-paste templates for **7d / 30d / 6mo** runs included.
 
 +++
-~5 min read + ~1 min run | Intermediate
+[Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-warning}`Intermediate`
 ```
 
 ````
