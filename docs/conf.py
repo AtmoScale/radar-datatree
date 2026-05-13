@@ -53,6 +53,16 @@ myst_enable_extensions = [
 html_theme = "sphinx_book_theme"
 html_theme_options = {
     "repository_url": "https://github.com/AtmoScale/radar-datatree",
+    "repository_branch": "main",
+    # The .ipynb pages under docs/ are symlinks to the real notebooks/ files;
+    # GitHub serves committed symlinks as their target-path text blob, not the
+    # resolved content, so the launch URL must point at notebooks/ to give
+    # Colab a real .ipynb to fetch.
+    "path_to_docs": "notebooks",
+    "launch_buttons": {
+        "colab_url": "https://colab.research.google.com",
+        "notebook_interface": "jupyterlab",
+    },
     "use_repository_button": True,
     "use_download_button": True,
     "show_toc_level": 2,
