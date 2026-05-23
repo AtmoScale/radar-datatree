@@ -15,7 +15,12 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx_design",
     "sphinx_copybutton",
+    "sphinx_sitemap",
 ]
+
+# Canonical site URL — required by sphinx-sitemap and used for OG/Twitter URLs.
+html_baseurl = "https://atmoscale.github.io/radar-datatree/"
+sitemap_url_scheme = "{link}"
 
 # MyST-NB settings
 nb_execution_mode = (
@@ -73,12 +78,37 @@ html_theme_options = {
     },
     "pygments_light_style": "tango",
     "pygments_dark_style": "monokai",
+    "extra_footer": (
+        'An open-source project by <a href="https://atmoscale.ai">AtmoScale</a>. '
+        "Apache 2.0 licensed."
+    ),
 }
 
 # Static assets (logos, favicon, custom CSS)
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
 html_favicon = "_static/favicon.png"
+
+# Custom templates inject OG/Twitter meta + JSON-LD into <head>.
+templates_path = ["_templates"]
+
+# Values consumed by _templates/layout.html. Edit copy here, not in the template.
+# Keys are prefixed `og_` to avoid colliding with theme-provided context vars
+# (e.g. sphinx_book_theme already defines `github_url`, which would silently
+# shadow ours and render as the bare repo host).
+html_context = {
+    "og_site_name": "AtmoScale",
+    "og_title": "Radar DataTree",
+    "og_description": (
+        "Stream petabyte-scale NEXRAD radar archives from the cloud — the "
+        "open-source on-ramp to the AtmoScale platform."
+    ),
+    "og_image": "https://atmoscale.github.io/radar-datatree/_static/social-card.png",
+    "og_url_base": "https://atmoscale.github.io/radar-datatree/",
+    "og_atmoscale_url": "https://atmoscale.ai",
+    "og_github_url": "https://github.com/AtmoScale/radar-datatree",
+    "og_doi_url": "https://doi.org/10.48550/arXiv.2510.24943",
+}
 
 # Source settings
 source_suffix = {

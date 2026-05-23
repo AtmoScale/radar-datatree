@@ -2,7 +2,10 @@
   <img src="assets/logo-banner.png" alt="radar-datatree — Cloud-native, time-aware weather radar datasets" width="800">
 </p>
 
+<p align="center"><em>An open-source project by <a href="https://atmoscale.ai">AtmoScale</a> — radar data infrastructure for institutions.</em></p>
+
 <p align="center">
+  <a href="https://atmoscale.ai"><img src="https://img.shields.io/badge/by-AtmoScale-0F2F4D.svg" alt="By AtmoScale"></a>
   <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
   <a href="https://doi.org/10.48550/arXiv.2510.24943"><img src="https://img.shields.io/badge/arXiv-2510.24943-b31b1b.svg" alt="arXiv"></a>
   <a href="https://atmoscale.github.io/radar-datatree/"><img src="https://img.shields.io/badge/docs-GitHub%20Pages-blue" alt="Documentation"></a>

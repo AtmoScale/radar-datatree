@@ -1,0 +1,74 @@
+{% extends "!layout.html" %}
+
+{# Open Graph + Twitter card + JSON-LD. Values come from html_context in conf.py.
+   Sphinx itself emits the <link rel="canonical"> tag when html_baseurl is set,
+   so this template only adds social/structured-data tags on top of that. #}
+
+{% block extrahead %}
+{{ super() }}
+
+{# Open Graph #}
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="{{ og_site_name }}" />
+<meta property="og:title" content="{{ title|striptags|e }} · {{ og_title }}" />
+<meta property="og:description" content="{{ og_description }}" />
+<meta property="og:image" content="{{ og_image }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content="{{ og_url_base }}{{ pagename }}.html" />
+
+{# Twitter card — no twitter:site / twitter:creator (AtmoScale has no account) #}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ title|striptags|e }} · {{ og_title }}" />
+<meta name="twitter:description" content="{{ og_description }}" />
+<meta name="twitter:image" content="{{ og_image }}" />
+
+{# JSON-LD: SoftwareSourceCode + ScholarlyArticle citation. Publisher = AtmoScale.
+   NOTE: og_description and other interpolated strings must not contain raw
+   double-quotes — there is no JSON-safe escaping here. Edit copy in conf.py
+   with that constraint. #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "radar-datatree",
+  "description": "{{ og_description }}",
+  "url": "{{ og_url_base }}",
+  "codeRepository": "{{ og_github_url }}",
+  "programmingLanguage": "Python",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "publisher": {
+    "@type": "Organization",
+    "name": "AtmoScale",
+    "url": "{{ og_atmoscale_url }}"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "name": "AtmoScale",
+    "url": "{{ og_atmoscale_url }}"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Alfonso Ladino-Rincón",
+      "affiliation": {"@type": "Organization", "name": "AtmoScale"}
+    },
+    {
+      "@type": "Person",
+      "name": "Stephen W. Nesbitt"
+    }
+  ],
+  "citation": {
+    "@type": "ScholarlyArticle",
+    "name": "Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives",
+    "author": [
+      {"@type": "Person", "name": "Alfonso Ladino-Rincón"},
+      {"@type": "Person", "name": "Stephen W. Nesbitt"}
+    ],
+    "datePublished": "2025",
+    "identifier": "10.48550/arXiv.2510.24943",
+    "url": "{{ og_doi_url }}"
+  }
+}
+</script>
+{% endblock %}
