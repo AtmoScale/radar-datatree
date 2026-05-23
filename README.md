@@ -15,23 +15,33 @@
 
 ---
 
-**radar-datatree** is a FAIR and cloud-native framework that turns fragmented NEXRAD Level II archives — millions of standalone binary files — into hierarchical, time-indexed, analysis-ready datasets queryable directly from object storage. Built on [xarray.DataTree](https://docs.xarray.dev/en/stable/user-guide/hierarchical-data.html), [Zarr v3](https://zarr.dev), and [Icechunk](https://icechunk.io).
+Reproducing a published radar figure used to mean downloading hours of NEXRAD Level II files, decoding them, and stitching sweeps by hand. With **radar-datatree**, it's one `xarray` call against the cloud archive.
 
-## Start here
+> Reproduce **[Ryzhkov et al. (2016)](https://doi.org/10.1175/JTECH-D-15-0020.1) Fig. 4** in **5 seconds** on a laptop — **60× faster, 22× less RAM** than the file-based workflow.
 
-**[Notebook 1 — open weather radar archives in 5 lines of code →](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html)**
+<p>
+  <a href="https://colab.research.google.com/github/AtmoScale/radar-datatree/blob/main/notebooks/1.NEXRAD-KLOT-Demo.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Notebook 1 in Colab"></a>
+  &nbsp;·&nbsp;
+  <a href="https://atmoscale.github.io/radar-datatree/quickstart.html"><strong>5-line quickstart →</strong></a>
+</p>
 
-Connect to the public [`s3://nexrad-arco`](https://registry.opendata.aws/nexrad-arco/) bucket on AWS, open the NEXRAD KLOT (Chicago) archive as one `xarray.DataTree`, and visualize a polarimetric scan. No downloads, no credentials.
+## Choose your path
 
-**Available archives:** `nexrad-arco/KLOT` on AWS (us-east-1). More NEXRAD radars are published to the same bucket as they're processed.
+| If you want to… | Start here |
+|---|---|
+| **Reproduce paper results** | [Notebook 2 — QVP workflow comparison](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) reproduces Ryzhkov et al. (2016). Then [Notebook 3 — QPE scaling](https://atmoscale.github.io/radar-datatree/3.QPE-Scaling-Benchmark.html) extends it to Marshall–Palmer rainfall accumulation. |
+| **Analyze your own event** | [Notebook 1 — KLOT demo](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) opens the live archive in 5 lines and visualizes a polarimetric scan. The [quickstart](https://atmoscale.github.io/radar-datatree/quickstart.html) is the 30-second version. |
+| **Understand the data model** | [About](https://atmoscale.github.io/radar-datatree/about.html) covers the DataTree / Icechunk / Zarr stack and the parent platform. [Glossary](https://atmoscale.github.io/radar-datatree/glossary.html) defines every radar acronym in one place. |
 
 ## Notebooks
 
-| | |
-|---|---|
-| [**1. NEXRAD KLOT demo**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Open weather radar archives in 5 lines — AWS Open Data Registry entry point. |
-| [**2. QVP workflow comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | **Paper reproduction.** Reproduce Ryzhkov et al. (2016); benchmark ARCO vs file-based access. |
-| [**3. QPE scaling benchmark**](https://atmoscale.github.io/radar-datatree/3.QPE-Scaling-Benchmark.html) | Marshall–Palmer rainfall accumulation, 1 day live + 7d/30d/6mo cluster-recommended templates. |
+| Notebook | Description | Open |
+|---|---|---|
+| [**1. NEXRAD KLOT demo**](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) | Open weather radar archives in 5 lines — AWS Open Data Registry entry point. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtmoScale/radar-datatree/blob/main/notebooks/1.NEXRAD-KLOT-Demo.ipynb) |
+| [**2. QVP workflow comparison**](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) | **Paper reproduction.** Reproduce Ryzhkov et al. (2016); benchmark ARCO vs file-based access. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtmoScale/radar-datatree/blob/main/notebooks/2.QVP-Workflow-Comparison.ipynb) |
+| [**3. QPE scaling benchmark**](https://atmoscale.github.io/radar-datatree/3.QPE-Scaling-Benchmark.html) | Marshall–Palmer rainfall accumulation, 1 day live + 7d/30d/6mo cluster-recommended templates. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AtmoScale/radar-datatree/blob/main/notebooks/3.QPE-Scaling-Benchmark.ipynb) |
+
+**Available archives:** `nexrad-arco/KLOT` (Chicago) and `nexrad-arco/KVNX` (Vance AFB, OK) on AWS `us-east-1`. More NEXRAD radars are published to the same bucket as they're processed.
 
 ## Reproducing the paper
 

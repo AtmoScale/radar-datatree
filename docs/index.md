@@ -13,65 +13,107 @@
 ```
 
 :::{div} rdt-tagline
-Companion code for *Ladino-Rincón et al.* (2026, in preparation).
+Companion code for *Ladino-Rincón et al.* (2026, in preparation). An open-source project by [AtmoScale](https://atmoscale.ai).
 :::
 
 :::
+
+```{epigraph}
+**The problem isn't NEXRAD data. It's the infrastructure around it.**
+
+Open the full archive in five lines of Python — no downloads, no decoders, no waiting.
+```
+
+````{grid} 1 3 3 3
+:gutter: 2
+:class-container: rdt-stat-grid
+
+```{grid-item-card}
+:class-card: rdt-stat-card
+
+**60×**
+^^^
+faster than the file-based workflow
++++
+Ryzhkov et al. (2016) reproduction
+```
+
+```{grid-item-card}
+:class-card: rdt-stat-card
+
+**22×**
+^^^
+less RAM
++++
+Stream chunks, not files
+```
+
+```{grid-item-card}
+:class-card: rdt-stat-card
+
+**100 TB**
+^^^
+queryable from a laptop
++++
+KLOT archive on `nexrad-arco`
+```
+
+````
+
+## Choose your path
+
+````{grid} 1 1 3 3
+:gutter: 3
+
+```{grid-item-card}
+:link: 2.QVP-Workflow-Comparison
+:link-type: doc
+:class-card: rdt-cta-card
+
+**Reproduce paper results**
+^^^
+
+Reproduce Ryzhkov et al. (2016) Fig. 4 in `~10 s` on a laptop. Then push to seasonal scale with Marshall–Palmer QPE.
+
++++
+[Notebook 2 →](2.QVP-Workflow-Comparison) · [Notebook 3 →](3.QPE-Scaling-Benchmark)
+```
+
+```{grid-item-card}
+:link: 1.NEXRAD-KLOT-Demo
+:link-type: doc
+:class-card: rdt-cta-card
+
+**Analyze your own event**
+^^^
+
+Open the live KLOT archive, slice a single severe-weather scan, and plot the polarimetric signature — in 5 lines.
+
++++
+[Notebook 1 →](1.NEXRAD-KLOT-Demo) · [Quickstart →](quickstart.md)
+```
+
+```{grid-item-card}
+:link: about
+:link-type: doc
+:class-card: rdt-cta-card
+
+**Understand the data model**
+^^^
+
+The DataTree / Icechunk / Zarr stack, the AtmoScale parent platform, and a glossary of every radar acronym in one place.
+
++++
+[About →](about.md) · [Glossary →](glossary.md)
+```
+
+````
 
 ## What is radar-datatree?
 
 **radar-datatree** is a [FAIR](https://www.go-fair.org/fair-principles/) and cloud-native framework that turns fragmented weather radar archives — millions of standalone binary files with no temporal indexing — into hierarchical, time-indexed, analysis-ready datasets queryable directly from object storage. Built on the WMO FM-301/CfRadial 2.1 standard, [xarray.DataTree](https://docs.xarray.dev/en/stable/user-guide/hierarchical-data.html), [Zarr v3](https://zarr.dev), and [Icechunk](https://icechunk.io).
 
 Instead of downloading and parsing thousands of binary files, you get direct access to time-indexed, multidimensional arrays — right from your Python session.
-
-## Get started
-
-````{grid} 1 1 3 3
-:gutter: 3
-
-```{grid-item-card}
-:link: installation
-:link-type: doc
-:class-card: rdt-cta-card
-
-**Install**
-^^^
-
-`uv sync` or conda — running locally in two minutes. Python ≥ 3.12.
-
-+++
-[Install →](installation.md)
-```
-
-```{grid-item-card}
-:link: quickstart
-:link-type: doc
-:class-card: rdt-cta-card
-
-**Quickstart**
-^^^
-
-Open the entire NEXRAD KLOT archive as one `xarray.DataTree` in 5 lines of code.
-
-+++
-[Quickstart →](quickstart.md)
-```
-
-```{grid-item-card}
-:link: tutorials
-:link-type: doc
-:class-card: rdt-cta-card
-
-**Tutorials**
-^^^
-
-Three runnable notebooks — from a beginner-friendly demo to paper reproduction and large-scale rainfall accumulation.
-
-+++
-[Tutorials →](tutorials.md)
-```
-
-````
 
 ```{toctree}
 :hidden:
@@ -81,5 +123,6 @@ Three runnable notebooks — from a beginner-friendly demo to paper reproduction
 installation
 quickstart
 tutorials
+glossary
 about
 ```
