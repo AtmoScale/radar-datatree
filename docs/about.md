@@ -1,5 +1,15 @@
 # About
 
+## Parent platform
+
+`radar-datatree` is the open-source on-ramp to **[AtmoScale](https://atmoscale.ai)** — the institutional platform for turning radar, satellite, and model data into cloud-native, decision-ready products. Use this repository to learn the data model, reproduce published results, or analyze events on your own. Talk to AtmoScale when you need it operationalized for your institution.
+
+```{button-link} https://atmoscale.ai
+:color: primary
+
+Visit AtmoScale →
+```
+
 ## Technology Stack
 
 ```{dropdown} Built on proven open-source technologies

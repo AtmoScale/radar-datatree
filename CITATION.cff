@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+title: "Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives"
+message: "If you use this software or the radar-datatree tutorials, please cite both the software and the accompanying paper."
+type: software
+authors:
+  - family-names: Ladino-Rincón
+    given-names: Alfonso
+    email: alfonso8@illinois.edu
+    affiliation: "University of Illinois Urbana-Champaign; AtmoScale"
+    orcid: "https://orcid.org/0000-0001-8081-7827"
+  - family-names: Nesbitt
+    given-names: Stephen W.
+    affiliation: "University of Illinois Urbana-Champaign"
+repository-code: "https://github.com/AtmoScale/radar-datatree"
+url: "https://atmoscale.ai"
+license: Apache-2.0
+version: 0.2.0
+keywords:
+  - weather radar
+  - NEXRAD
+  - ARCO
+  - cloud-native
+  - xarray
+  - DataTree
+  - Zarr
+  - Icechunk
+  - polarimetric
+  - QVP
+  - QPE
+preferred-citation:
+  type: article
+  title: "Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives"
+  authors:
+    - family-names: Ladino-Rincón
+      given-names: Alfonso
+      affiliation: "University of Illinois Urbana-Champaign; AtmoScale"
+    - family-names: Nesbitt
+      given-names: Stephen W.
+      affiliation: "University of Illinois Urbana-Champaign"
+  year: 2025
+  journal: arXiv
+  doi: 10.48550/arXiv.2510.24943
+  url: "https://doi.org/10.48550/arXiv.2510.24943"
+  notes: "Earlier preprint of a journal article in preparation (2026)."

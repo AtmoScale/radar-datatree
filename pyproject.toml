@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "radar-datatree"
 version = "0.2.0"
-description = "Examples and tutorials for accessing ARCO weather radar data using the Radar DataTree framework"
+description = "Stream petabyte-scale NEXRAD radar archives from the cloud — the open-source on-ramp to the AtmoScale platform."
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "Apache-2.0"}
@@ -98,6 +98,7 @@ dev = [
     "sphinx-book-theme>=1.1.4",
     "sphinx-design>=0.6.1",
     "sphinx-copybutton>=0.5.1",
+    "sphinx-sitemap>=2.6.0",
 ]
 
 [tool.uv]
