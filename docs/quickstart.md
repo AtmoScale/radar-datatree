@@ -1,6 +1,6 @@
 # Quickstart
 
-Open the public NEXRAD KLOT (Chicago, IL) archive as a single `xarray.DataTree` — no downloads, no parsing, no preprocessing.
+Five lines of Python — every NEXRAD KLOT (Chicago, IL) scan ever published to the public archive, in one `xarray.DataTree`. No downloads, no decoders, no waiting.
 
 ```python
 import xarray as xr
@@ -18,7 +18,7 @@ dt = xr.open_datatree(session.store, engine="rustytree", chunks=None)
 print(sorted(dt.children))   # → ['VCP-12', 'VCP-212', 'VCP-34', ...]
 ```
 
-That's it. `dt` is a hierarchical, time-indexed view of the entire KLOT archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), grouped by Volume Coverage Pattern (VCP) and sweep. Every variable is lazy — Zarr chunks load only when you slice into them.
+That's it. `dt` is a hierarchical, time-indexed view of the entire KLOT archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), grouped by {term}`Volume Coverage Pattern <VCP>` and {term}`sweep`. Every variable is lazy — only the {term}`Zarr v3` chunks you slice into are fetched from S3.
 
 ## What's next
 

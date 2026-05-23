@@ -59,6 +59,24 @@ jobs:
           restore-keys: |
             venv-${{ runner.os }}-py3.12-
 
+      # Cache MyST-NB's notebook execution results between runs. The cache key
+      # invalidates when:
+      #   - dependencies change (pyproject.toml, uv.lock) — new package versions
+      #     could break notebooks even with unchanged code
+      #   - the shared helper module changes (notebooks/demo_functions.py) —
+      #     jupyter-cache's per-notebook content hash doesn't track imports
+      # Notebook source changes (notebooks/*.ipynb) are handled automatically by
+      # jupyter-cache's per-cell hashing, so they don't need to be in the key.
+      # Upstream-data drift (S3 layout, bucket availability) is NOT caught here;
+      # cover that with a scheduled cron run in a follow-up.
+      - name: Cache jupyter-cache (MyST-NB execution outputs)
+        uses: actions/cache@v4
+        with:
+          path: _build/.jupyter_cache
+          key: nbcache-${{ runner.os }}-${{ hashFiles('pyproject.toml', 'uv.lock', 'notebooks/demo_functions.py') }}
+          restore-keys: |
+            nbcache-${{ runner.os }}-
+
       - name: Install dependencies
         run: |
           uv sync --group dev

@@ -4,6 +4,15 @@
 
 `radar-datatree` is the open-source on-ramp to **[AtmoScale](https://atmoscale.ai)** — the institutional platform for turning radar, satellite, and model data into cloud-native, decision-ready products. Use this repository to learn the data model, reproduce published results, or analyze events on your own. Talk to AtmoScale when you need it operationalized for your institution.
 
+### What's here vs. what's on the platform
+
+| | This repository | AtmoScale platform |
+|---|---|---|
+| **Data** | Public archives on `s3://nexrad-arco` (anonymous reads) | Curated archives, custom radar networks, multi-modal fusion |
+| **Code** | Tutorials, reproducible notebooks, the helper module | Managed pipelines, dashboards, alerting |
+| **Use case** | Research, reproducibility, learning the data model | Operations, institutional deployments, SLA-backed delivery |
+| **Support** | GitHub Issues (community) | Direct support from the AtmoScale team |
+
 ```{button-link} https://atmoscale.ai
 :color: primary
 
