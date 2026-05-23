@@ -266,6 +266,90 @@ def ryzhkov_figure(qvp_ref, qvp_zdr, qvp_rhohv, qvp_phidp):
     return fig.tight_layout()
 
 
+# Default 4-panel polarimetric layout for plot_polarimetric_panel(). Each row
+# is (variable, cmap, vmin, vmax, colorbar label) — matches the standard
+# dual-pol quartet shown in the radar-meteorology literature.
+DEFAULT_POLARIMETRIC_PANELS = [
+    ("DBZH", "ChaseSpectral", -10, 70, "Reflectivity [dBZ]"),
+    ("ZDR", "HomeyerRainbow", -2, 6, "Differential Reflectivity [dB]"),
+    ("RHOHV", "Carbone11", 0.7, 1.0, "Cross-Correlation Coefficient"),
+    ("PHIDP", "PD17", 0, 180, "Differential Phase [deg]"),
+]
+
+
+def plot_polarimetric_panel(
+    scan: xr.Dataset,
+    *,
+    panels: list[tuple[str, str, float, float, str]] | None = None,
+    xlim: tuple[float, float] = (-10, 80),
+    ylim: tuple[float, float] = (-100, 0),
+    suptitle: str | None = None,
+    figsize: tuple[float, float] = (11, 9),
+):
+    """Render the standard 2×2 polarimetric snapshot (Z, ZDR, RhoHV, PhiDP).
+
+    Parameters
+    ----------
+    scan
+        A georeferenced single-time radar sweep — must have ``x`` and ``y``
+        Cartesian coordinates in **metres** (pass the output of
+        :meth:`xarray.Dataset.xradar.georeference`).
+    panels
+        Optional override for the 4 panels. Each entry is
+        ``(variable, cmap, vmin, vmax, colorbar_label)``. Defaults to the
+        standard polarimetric quartet — pass a different list to plot
+        velocity, KDP, or other variables.
+    xlim, ylim
+        Plot extent in **kilometres** (axes are rescaled inside the helper).
+        Defaults zoom into the sector with the strongest echoes in the
+        demo snapshot; widen for full-disk views.
+    suptitle
+        Figure-level title. Defaults to
+        ``"KLOT polarimetric snapshot — <vcp_time> UTC"``.
+    figsize
+        Matplotlib figure size in inches.
+
+    Returns
+    -------
+    tuple[matplotlib.figure.Figure, numpy.ndarray]
+        The figure and 2×2 array of axes, so callers can post-process if
+        they want (add annotations, save, etc.).
+    """
+    import cmweather  # noqa: F401  — registers ChaseSpectral / HomeyerRainbow / Carbone11 / PD17 colormaps
+
+    panels = panels or DEFAULT_POLARIMETRIC_PANELS
+
+    # Rescale x/y from metres to kilometres so tick marks read cleanly.
+    scan_km = scan.assign_coords(x=scan.x / 1000, y=scan.y / 1000)
+    scan_km.x.attrs["units"] = "km"
+    scan_km.y.attrs["units"] = "km"
+
+    fig, axes = plt.subplots(2, 2, figsize=figsize, sharex=True, sharey=True)
+    for ax, (var, cmap, vmin, vmax, label) in zip(axes.flat, panels, strict=True):
+        scan_km[var].plot(
+            ax=ax,
+            x="x",
+            y="y",
+            cmap=cmap,
+            vmin=vmin,
+            vmax=vmax,
+            cbar_kwargs={"label": label, "shrink": 0.8},
+        )
+        ax.set_title(var)
+        ax.set_xlabel("East-West distance [km]")
+        ax.set_ylabel("North-South distance [km]")
+        ax.set_aspect("equal")
+        ax.set_xlim(*xlim)
+        ax.set_ylim(*ylim)
+
+    if suptitle is None and "vcp_time" in scan.coords:
+        suptitle = f"KLOT polarimetric snapshot — {str(scan.vcp_time.values)[:19]} UTC"
+    if suptitle:
+        fig.suptitle(suptitle, fontsize=12)
+    fig.tight_layout()
+    return fig, axes
+
+
 def list_nexrad_files(
     radar: str = "KVNX",
     start_time: str = "2011-05-20 00:00",
@@ -364,6 +448,44 @@ def get_repo_config():
             splitting=split_config, preload=preload_config
         ),
     )
+
+
+def connect_to_nexrad_arco(
+    prefix: str,
+    *,
+    branch: str = "main",
+    region: str = "us-east-1",
+) -> icechunk.Session:
+    """Open a read-only Icechunk session against ``s3://nexrad-arco/<prefix>``.
+
+    Parameters
+    ----------
+    prefix
+        Per-radar prefix inside the bucket — e.g. ``"KLOT"`` or ``"KVNX"``.
+    branch
+        Icechunk branch to read from. The published archives all use
+        ``"main"``; other branches are typically internal development.
+    region
+        AWS region. The bucket is hosted in ``us-east-1``; override only
+        if the archive is mirrored elsewhere.
+
+    Returns
+    -------
+    icechunk.Session
+        A read-only session backed by anonymous S3 reads — no AWS
+        credentials needed. Pass ``session.store`` to
+        :func:`xarray.open_datatree`.
+    """
+    storage = icechunk.s3_storage(
+        bucket="nexrad-arco",
+        prefix=prefix,
+        region=region,
+        # anonymous=True is what makes the public bucket usable without AWS
+        # credentials. Drop it and reads fail with an auth error even
+        # though the bucket is public.
+        anonymous=True,
+    )
+    return icechunk.Repository.open(storage).readonly_session(branch)
 
 
 def list_nexrad_files_with_sizes(
