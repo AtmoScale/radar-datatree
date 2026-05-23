@@ -24,60 +24,16 @@ Companion code for *Ladino-Rincón et al.* (2026, in preparation). An open-sourc
 Open the full archive in five lines of Python — no downloads, no decoders, no waiting.
 ```
 
-````{grid} 1 3 3 3
-:gutter: 2
-:class-container: rdt-stat-grid
-
-```{grid-item-card}
-:class-card: rdt-stat-card
-
-**60×**
-^^^
-faster than the file-based workflow
-+++
-Ryzhkov et al. (2016) reproduction
-```
-
-```{grid-item-card}
-:class-card: rdt-stat-card
-
-**22×**
-^^^
-less RAM
-+++
-Stream chunks, not files
-```
-
-```{grid-item-card}
-:class-card: rdt-stat-card
-
-**100 TB**
-^^^
-queryable from a laptop
-+++
-KLOT archive on `nexrad-arco`
-```
-
-````
+<div class="rdt-stat-bar">
+  <div class="rdt-stat"><strong>60×</strong><span>faster than file-based</span></div>
+  <div class="rdt-stat"><strong>22×</strong><span>less RAM</span></div>
+  <div class="rdt-stat"><strong>100 TB</strong><span>queryable from a laptop</span></div>
+</div>
 
 ## Choose your path
 
 ````{grid} 1 1 3 3
 :gutter: 3
-
-```{grid-item-card}
-:link: 2.QVP-Workflow-Comparison
-:link-type: doc
-:class-card: rdt-cta-card
-
-**Reproduce paper results**
-^^^
-
-Reproduce Ryzhkov et al. (2016) Fig. 4 in `~10 s` on a laptop. Then push to seasonal scale with Marshall–Palmer QPE.
-
-+++
-[Notebook 2 →](2.QVP-Workflow-Comparison) · [Notebook 3 →](3.QPE-Scaling-Benchmark)
-```
 
 ```{grid-item-card}
 :link: 1.NEXRAD-KLOT-Demo
@@ -91,6 +47,20 @@ Open the live KLOT archive, slice a single severe-weather scan, and plot the pol
 
 +++
 [Notebook 1 →](1.NEXRAD-KLOT-Demo) · [Quickstart →](quickstart.md)
+```
+
+```{grid-item-card}
+:link: 2.QVP-Workflow-Comparison
+:link-type: doc
+:class-card: rdt-cta-card
+
+**Reproduce paper results**
+^^^
+
+Reproduce Ryzhkov et al. (2016) Fig. 4 in `~10 s` on a laptop. Then push to seasonal scale with Marshall–Palmer QPE.
+
++++
+[Notebook 2 →](2.QVP-Workflow-Comparison) · [Notebook 3 →](3.QPE-Scaling-Benchmark)
 ```
 
 ```{grid-item-card}

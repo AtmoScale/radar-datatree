@@ -29,8 +29,8 @@ Reproducing a published radar figure used to mean downloading hours of NEXRAD Le
 
 | If you want to… | Start here |
 |---|---|
-| **Reproduce paper results** | [Notebook 2 — QVP workflow comparison](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) reproduces Ryzhkov et al. (2016). Then [Notebook 3 — QPE scaling](https://atmoscale.github.io/radar-datatree/3.QPE-Scaling-Benchmark.html) extends it to Marshall–Palmer rainfall accumulation. |
 | **Analyze your own event** | [Notebook 1 — KLOT demo](https://atmoscale.github.io/radar-datatree/1.NEXRAD-KLOT-Demo.html) opens the live archive in 5 lines and visualizes a polarimetric scan. The [quickstart](https://atmoscale.github.io/radar-datatree/quickstart.html) is the 30-second version. |
+| **Reproduce paper results** | [Notebook 2 — QVP workflow comparison](https://atmoscale.github.io/radar-datatree/2.QVP-Workflow-Comparison.html) reproduces Ryzhkov et al. (2016). Then [Notebook 3 — QPE scaling](https://atmoscale.github.io/radar-datatree/3.QPE-Scaling-Benchmark.html) extends it to Marshall–Palmer rainfall accumulation. |
 | **Understand the data model** | [About](https://atmoscale.github.io/radar-datatree/about.html) covers the DataTree / Icechunk / Zarr stack and the parent platform. [Glossary](https://atmoscale.github.io/radar-datatree/glossary.html) defines every radar acronym in one place. |
 
 ## Notebooks

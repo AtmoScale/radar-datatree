@@ -357,6 +357,41 @@ html[data-theme="dark"] .bd-content .sd-card strong {
   background: var(--rdt-teal-700);
 }
 
+/* Landing-page hero metrics — flat stat bar, deliberately *not* cards.
+ * Keeping only one row of cards on the page (Choose-your-path) so the
+ * navigation hierarchy reads cleanly. */
+.bd-content .rdt-stat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem 3.5rem;
+  margin: 1.75rem 0 2.5rem;
+  padding: 1.25rem 0;
+}
+
+.bd-content .rdt-stat-bar .rdt-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 10rem;
+}
+
+.bd-content .rdt-stat-bar .rdt-stat strong {
+  font-family: var(--rdt-font-display, var(--rdt-font-body));
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--rdt-teal-500);
+  letter-spacing: -0.02em;
+}
+
+.bd-content .rdt-stat-bar .rdt-stat span {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--pst-color-text-muted);
+}
+
 html[data-theme="dark"] .rdt-cta-card::after,
 html[data-theme="dark"] .rdt-tutorial-card::after {
   color: #0B1220;
