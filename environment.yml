@@ -27,6 +27,6 @@ dependencies:
   - pip
   - pip:
       - icechunk>=2.0.4
-      - rustytree-xarray>=0.2
+      - rustytree-xarray>=0.3.0
       - sphinx-design>=0.6.1
       - sphinx-copybutton>=0.5.1
