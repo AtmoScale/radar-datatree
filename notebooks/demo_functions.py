@@ -475,6 +475,15 @@ def connect_to_nexrad_arco(
         A read-only session backed by anonymous S3 reads — no AWS
         credentials needed. Pass ``session.store`` to
         :func:`xarray.open_datatree`.
+
+    Notes
+    -----
+    Works for both native and *virtualized* archives on ``nexrad-arco``.
+    The virtualized repos (e.g. ``"KLOT-lowsweeps"``) store their chunks as
+    virtual references back into ``s3://nexrad-arco/``; reading their data
+    requires authorizing that virtual-chunk container. We always pass the
+    anonymous authorization below — it's what those repos need and it's a
+    harmless no-op for the native repos that have no virtual chunks.
     """
     storage = icechunk.s3_storage(
         bucket="nexrad-arco",
@@ -485,7 +494,17 @@ def connect_to_nexrad_arco(
         # though the bucket is public.
         anonymous=True,
     )
-    return icechunk.Repository.open(storage).readonly_session(branch)
+    # Authorize anonymous reads of virtual chunks that resolve to
+    # s3://nexrad-arco/. Without this, opening a virtualized repo succeeds
+    # but the first .compute() raises "you need to authorize the virtual
+    # chunk container". No-op for native (non-virtual) repos.
+    virtual_auth = icechunk.containers_credentials(
+        {"s3://nexrad-arco/": icechunk.s3_anonymous_credentials()}
+    )
+    repo = icechunk.Repository.open(
+        storage, authorize_virtual_chunk_access=virtual_auth
+    )
+    return repo.readonly_session(branch)
 
 
 def list_nexrad_files_with_sizes(

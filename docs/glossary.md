@@ -20,7 +20,7 @@ KLOT
   `s3://nexrad-arco/KLOT` is the entry-point dataset for Notebook 1.
 
 KVNX
-  NEXRAD radar site near Vance AFB, OK. Used in Notebook 2 to reproduce
+  NEXRAD radar site near Vance AFB, OK. Used in Notebook 3 to reproduce
   Ryzhkov et al. (2016).
 
 NEXRAD
