@@ -50,7 +50,7 @@ Open the live KLOT archive, slice a single severe-weather scan, and plot the pol
 ```
 
 ```{grid-item-card}
-:link: 2.QVP-Workflow-Comparison
+:link: 3.QVP-Workflow-Comparison
 :link-type: doc
 :class-card: rdt-cta-card
 
@@ -60,7 +60,7 @@ Open the live KLOT archive, slice a single severe-weather scan, and plot the pol
 Reproduce Ryzhkov et al. (2016) Fig. 4 in `~10 s` on a laptop. Then push to seasonal scale with Marshall–Palmer QPE.
 
 +++
-[Notebook 2 →](2.QVP-Workflow-Comparison) · [Notebook 3 →](3.QPE-Scaling-Benchmark)
+[Notebook 3 →](3.QVP-Workflow-Comparison) · [Notebook 4 →](4.QPE-Scaling-Benchmark)
 ```
 
 ```{grid-item-card}

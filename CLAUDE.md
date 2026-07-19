@@ -136,8 +136,9 @@ dtree = xr.open_datatree(
 ## Key Files
 
 - `notebooks/1.NEXRAD-KLOT-Demo.ipynb`: AWS Open Data access demo — data access and polarimetric visualization. **Filename is fixed**: this file is linked from the [AWS Open Data Registry page for nexrad-arco](https://registry.opendata.aws/nexrad-arco/). Never rename, move, or delete it; rewrites in place are fine.
-- `notebooks/2.QVP-Workflow-Comparison.ipynb`: Intermediate — QVP reproduction, ARCO vs file-based performance comparison
-- `notebooks/3.QPE-Snow-Storm.ipynb`: Advanced — snow accumulation estimation using Z-R relationships
+- `notebooks/2.KLOT-LowSweeps.ipynb`: Low sweeps across every VCP — glob-and-concatenate vs. the pre-stitched `KLOT-lowsweeps` virtual archive, then a polarimetric snapshot
+- `notebooks/3.QVP-Workflow-Comparison.ipynb`: Intermediate — QVP reproduction, ARCO vs file-based performance comparison
+- `notebooks/4.QPE-Scaling-Benchmark.ipynb`: Advanced — Marshall–Palmer QPE accumulation, 1-day live + cluster-scaling templates (`notebooks/3.QPE-Snow-Storm.ipynb` is retired/build-excluded)
 - `notebooks/demo_functions.py`: All helper functions (QVP, rainfall, visualization, data access)
 - `docs/conf.py`: Sphinx configuration (myst_nb, sphinx_book_theme)
 

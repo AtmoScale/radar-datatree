@@ -1,12 +1,12 @@
 # Tutorials
 
-Three runnable notebooks — each end-to-end on the public archives, no credentials. Take them in order; each one builds on what the last one taught.
+Four runnable notebooks — each end-to-end on the public archives, no credentials. Take them in order; each one builds on what the last one taught.
 
 :::{tip}
 Run [Verify your install](installation.md#verify-your-install) once before the first tutorial to confirm `import xarray, icechunk` and the connection to `s3://nexrad-arco` work in your environment.
 :::
 
-````{grid} 1 1 3 3
+````{grid} 1 1 2 2
 :gutter: 3
 
 ```{grid-item-card}
@@ -23,7 +23,20 @@ Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry
 ```
 
 ```{grid-item-card}
-:link: 2.QVP-Workflow-Comparison
+:link: 2.KLOT-LowSweeps
+:link-type: doc
+:class-card: rdt-tutorial-card
+
+**Low sweeps across every VCP — assemble or open pre-built**
+
+Grab the lowest-elevation sweep as one continuous series two ways: glob-and-concatenate across VCPs, or open the pre-stitched `KLOT-lowsweeps` virtual archive. Then plot a polarimetric snapshot.
+
++++
+[Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-success}`Beginner`
+```
+
+```{grid-item-card}
+:link: 3.QVP-Workflow-Comparison
 :link-type: doc
 :class-card: rdt-tutorial-card
 
@@ -36,7 +49,7 @@ Compute the QVP for the May 20, 2011 KVNX MCS via the traditional file workflow 
 ```
 
 ```{grid-item-card}
-:link: 3.QPE-Scaling-Benchmark
+:link: 4.QPE-Scaling-Benchmark
 :link-type: doc
 :class-card: rdt-tutorial-card
 
@@ -55,6 +68,7 @@ Marshall–Palmer Z–R rainfall accumulation, live for one day. Cluster-recomme
 :maxdepth: 1
 
 1.NEXRAD-KLOT-Demo
-2.QVP-Workflow-Comparison
-3.QPE-Scaling-Benchmark
+2.KLOT-LowSweeps
+3.QVP-Workflow-Comparison
+4.QPE-Scaling-Benchmark
 ```
