@@ -89,3 +89,35 @@ Zarr v3
   independently compressed chunks; clients fetch only the chunks needed for
   a given query.
 ```
+
+(how-big-is-the-archive)=
+## How big is the archive?
+
+Five different numbers get called "size", and they differ by orders of magnitude. Quoting the
+wrong one is the easiest way to mislead — so here is what each means for `nexrad-arco/KLOT`.
+
+**Logical size** — what `dt.nbytes` reports: every array's uncompressed extent, as if you
+materialized the whole archive in memory. Notebook 1 prints **>100 TB for KLOT alone**, and it
+grows with every volume the radar completes. It is the honest answer to "how much data is
+addressable", and a meaningless answer to "how much storage does this need".
+
+**Compressed source size** — the bytes of the original NEXRAD Level II objects, which gzip at
+roughly 4:1, so their stored footprint is far below the logical size. (The ARCO chunks themselves
+are stored uncompressed, so for them bytes on the wire equal bytes in memory.)
+
+**Materialized size** — what a *native* ARCO copy occupies once decoded, harmonized and
+rechunked. This is real duplicated storage, and it is the cost virtualization avoids.
+
+**Virtual reference size** — what a repo like `KLOT-lowsweeps` occupies. Its chunks are byte-range
+references into objects that already exist, so it re-indexes the archive rather than copying it.
+Notebook 2 shows `session.chunk_type(...)` reporting `ChunkType.virtual` for exactly this reason.
+
+**Bytes transferred** — what a bounded query actually pulls over the network, and usually the only
+one a user feels. In Notebook 3's benchmark the file-based path moves ~810 MiB compressed — about
+3.2 GB once decoded — to extract the 146 MB the analysis needs; the ARCO path streams those 146 MB
+and nothing else. Note which ratio is which: the headline **22×** is the *decoded* comparison; on
+the wire the saving is nearer **5.5×**.
+
+That last contrast is the point: the advantage is **selective access**, not compression. A claim
+like "100 TB queryable from a laptop" is true only in the logical sense — the laptop never holds
+100 TB, it fetches the few hundred megabytes the query touches.

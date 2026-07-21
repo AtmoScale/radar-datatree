@@ -21,14 +21,18 @@ Companion code for *Ladino-Rincón et al.* (2026, submitted to *IEEE Transaction
 ```{epigraph}
 **The problem isn't NEXRAD data. It's the infrastructure around it.**
 
-Open the full archive in five lines of Python — no downloads, no decoders, no waiting.
+Open the full archive in five lines of Python — no bulk downloads, no file-by-file decoding, no manual archive assembly.
 ```
 
 <div class="rdt-stat-bar">
-  <div class="rdt-stat"><strong>60×</strong><span>faster than file-based</span></div>
-  <div class="rdt-stat"><strong>22×</strong><span>less RAM</span></div>
-  <div class="rdt-stat"><strong>100 TB</strong><span>queryable from a laptop</span></div>
+  <div class="rdt-stat"><strong>Hours → seconds</strong><span><a href="3.QVP-Workflow-Comparison.html">preparation becomes analysis</a></span></div>
+  <div class="rdt-stat"><strong>Open formats</strong><span><a href="about.html">Zarr v3 · Icechunk · no lock-in</a></span></div>
+  <div class="rdt-stat"><strong>One dataset</strong><span><a href="1.NEXRAD-KLOT-Demo.html">every VCP and sweep, time-indexed</a></span></div>
 </div>
+
+:::{note}
+No fixed speedup is quoted here on purpose. The gap depends on your network and hardware — repeat runs of the same benchmark on one machine spanned more than a threefold range — so [Notebook 3](3.QVP-Workflow-Comparison) measures it on *your* machine and prints the result, rather than asking you to trust ours. For what "the whole archive" does and does not mean in storage terms, see [how big is the archive](glossary.md#how-big-is-the-archive).
+:::
 
 ## Choose your path
 

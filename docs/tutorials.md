@@ -42,7 +42,7 @@ Only need the cuts closest to the ground? Open the `KLOT-lowsweeps` **virtual re
 
 **Reproduce Ryzhkov et al. (2016): traditional vs ARCO**
 
-Compute the QVP for the May 20, 2011 KVNX MCS via the traditional file workflow vs ARCO streaming and measure the gap — **~6 min vs ~10 s** on the same bytes.
+Compute the QVP for the May 20, 2011 KVNX MCS via the traditional file workflow vs ARCO streaming, assert both produce the identical profile, and measure the gap — **hours of preparation become seconds of analysis**. The notebook re-measures on your machine rather than quoting a fixed number.
 
 +++
 [Read]{.rdt-meta-label} 7 min · [Run]{.rdt-meta-label} ~6 min · {bdg-warning}`Intermediate`

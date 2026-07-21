@@ -17,7 +17,7 @@
 
 Reproducing a published radar figure used to mean downloading hours of NEXRAD Level II files, decoding them, and stitching sweeps by hand. With **radar-datatree**, it's one `xarray` call against the cloud archive.
 
-> Reproduce **[Ryzhkov et al. (2016)](https://doi.org/10.1175/JTECH-D-15-0020.1) Fig. 4** in **5 seconds** on a laptop — **60× faster, 22× less RAM** than the file-based workflow.
+> Reproduce **[Ryzhkov et al. (2016)](https://doi.org/10.1175/JTECH-D-15-0020.1) Fig. 4** on a laptop — **hours of file preparation become seconds of analysis**, reading a fraction of the bytes. [Notebook 3](https://atmoscale.github.io/radar-datatree/3.QVP-Workflow-Comparison.html) runs both workflows, asserts they agree, and measures the gap on your machine.
 
 <p>
   <a href="https://colab.research.google.com/github/AtmoScale/radar-datatree/blob/main/notebooks/1.NEXRAD-KLOT-Demo.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open Notebook 1 in Colab"></a>
