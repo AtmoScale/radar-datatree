@@ -7,6 +7,9 @@ on:
       - 'notebooks/**'
       - 'docs/**'
       - 'images/**'
+      - 'assets/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
       - '.github/workflows/render-notebooks.yml'
   pull_request:
     branches: [main]
@@ -14,10 +17,20 @@ on:
       - 'notebooks/**'
       - 'docs/**'
       - 'images/**'
+      - 'assets/**'
+      # A dependency bump invalidates both caches below, so it must trigger CI
+      # too — otherwise the next notebook PR eats the cold-cache failure.
+      - 'pyproject.toml'
+      - 'uv.lock'
       # Workflow-file-only PRs (like the cold-cache fix in PR #24) must
       # also trigger CI so the workflow itself is validated against PR diffs.
       - '.github/workflows/render-notebooks.yml'
   workflow_dispatch:  # Allow manual triggering
+  # Weekly cold-cache canary: the notebooks read live, growing public archives,
+  # so upstream drift (retention, re-ingest, a new VCP) can break them with no
+  # repo change at all. This run skips the execution cache to actually hit S3.
+  schedule:
+    - cron: '0 6 * * 1'
 
 # Cancel previous runs on the same PR/branch
 concurrency:
@@ -33,7 +46,7 @@ permissions:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
@@ -60,20 +73,21 @@ jobs:
             venv-${{ runner.os }}-py3.12-
 
       # Cache MyST-NB's notebook execution results between runs. The cache key
-      # invalidates when:
-      #   - dependencies change (pyproject.toml, uv.lock) — new package versions
-      #     could break notebooks even with unchanged code
-      #   - the shared helper module changes (notebooks/demo_functions.py) —
-      #     jupyter-cache's per-notebook content hash doesn't track imports
+      # invalidates when dependencies change (pyproject.toml, uv.lock) — new
+      # package versions could break notebooks even with unchanged code.
       # Notebook source changes (notebooks/*.ipynb) are handled automatically by
       # jupyter-cache's per-cell hashing, so they don't need to be in the key.
-      # Upstream-data drift (S3 layout, bucket availability) is NOT caught here;
-      # cover that with a scheduled cron run in a follow-up.
+      # Notebooks are self-contained (no shared helper module), so there is no
+      # cross-notebook import to track here.
+      # Upstream-data drift (S3 layout, retention, a new VCP) is NOT caught by
+      # this key — the weekly `schedule:` run above skips this cache entirely so
+      # it re-executes cold against the live archives.
       - name: Cache jupyter-cache (MyST-NB execution outputs)
+        if: github.event_name != 'schedule'
         uses: actions/cache@v4
         with:
           path: _build/.jupyter_cache
-          key: nbcache-${{ runner.os }}-${{ hashFiles('pyproject.toml', 'uv.lock', 'notebooks/demo_functions.py') }}
+          key: nbcache-${{ runner.os }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
           restore-keys: |
             nbcache-${{ runner.os }}-
 

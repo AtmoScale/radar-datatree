@@ -16,7 +16,7 @@ Run [Verify your install](installation.md#verify-your-install) once before the f
 
 **Open weather radar archives in 5 lines of code**
 
-Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/) as one `xarray.DataTree` and visualize a polarimetric scan.
+Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/) as one `xarray.DataTree`, narrow it to a single VCP and sweep, and read back one scan of a July 2016 hailstorm as reflectivity.
 
 +++
 [Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-success}`Beginner`
@@ -27,9 +27,9 @@ Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry
 :link-type: doc
 :class-card: rdt-tutorial-card
 
-**Low sweeps across every VCP — assemble or open pre-built**
+**Get only the sweep you need**
 
-Grab the lowest-elevation sweep as one continuous series two ways: glob-and-concatenate across VCPs, or open the pre-stitched `KLOT-lowsweeps` virtual archive. Then plot a polarimetric snapshot.
+Only need the cuts closest to the ground? Open the `KLOT-lowsweeps` **virtual reference** archive and get `sweep_0` and `sweep_1` as continuous time axes over the whole record — no VCP bookkeeping, and no bytes copied. See why both sit at the same 0.5° elevation (the split cut), then plot Z, ZDR, RHOHV and PHIDP.
 
 +++
 [Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-success}`Beginner`

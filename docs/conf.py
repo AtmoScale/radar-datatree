@@ -1,9 +1,8 @@
 # Sphinx configuration for Radar DataTree documentation
-import os
-import sys
 
-# Add notebooks directory to path
-sys.path.insert(0, os.path.abspath("../notebooks"))
+# NOTE: no sys.path manipulation here. `../notebooks` used to be prepended so
+# the build could import notebooks/demo_functions.py; that module is gone and
+# every notebook is self-contained, so nothing needs to be importable.
 
 project = "Radar DataTree"
 author = "Alfonso Ladino-Rincón"
@@ -27,7 +26,7 @@ nb_execution_mode = (
     "cache"  # Execute and cache results; re-execute only when code changes
 )
 # Per-cell timeout (seconds). The file-based 1-day download cell in
-# notebook 2 takes ~7–8 minutes on a CI runner.
+# notebook 3 (the file-based QVP download loop) takes ~7–8 minutes on a CI runner.
 nb_execution_timeout = 600
 # Fail the build if any notebook cell raises during execution. Without
 # this, myst-nb degrades a CellExecutionError into a non-blocking
@@ -126,12 +125,21 @@ exclude_patterns = [
     # Without this guard sphinx renders MEMORY.md into the published site.
     ".claude",
     # Hidden until refactored against rustytree + xarray 2026.4. Each
-    # comes back in its own PR as the rewrite lands. (3.QPE-Snow-Storm
-    # was retired here — the December 2025 IL snow-storm dataset is not
-    # currently available; the QPE story now lives in
-    # 4.QPE-Scaling-Benchmark.ipynb, the paper companion.)
+    # comes back in its own PR as the rewrite lands.
     "4.Basin-Precipitation-Monitoring.ipynb",
     "5.Rainfall-QPE-Marshall-Palmer.ipynb",
+    # notebooks/3.QPE-Snow-Storm.ipynb is parked deliberately: it lives in the
+    # repo but has no docs/ symlink and is in no toctree, so sphinx never sees
+    # it and it does not render in the book. It is self-contained (its helpers
+    # are inlined like every other notebook), so it will run if resurrected.
+    #
+    # Its data IS available (verified 2026-07-20: KLOT VCP-34, 318 scans over
+    # 2025-12-13/14) — the earlier "dataset unavailable" note was wrong. The
+    # real blocker is scientific: VCP-34 tops out at 4.48°, too low for a QVP
+    # (reaching 3 km needs ~38 km range, so each profile point averages a
+    # ~76 km swath and the dendritic growth zone smears out). A winter QVP
+    # needs a precipitation VCP — e.g. KLOT VCP-215 on 2022-02-02/03,
+    # sweep_16 at 16.70°, 563 scans, all four polarimetric variables.
 ]
 
 # Suppress warnings for notebooks with no outputs

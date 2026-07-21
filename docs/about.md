@@ -82,9 +82,9 @@ xarray Docs
 
 ## Citation
 
-**Forthcoming paper (in preparation):**
+**Journal article (submitted):**
 
-> Ladino-Rincón, A., et al. (2026). *Radar DataTree: A FAIR and Cloud-Native Framework for Scalable Weather Radar Archives.* (Manuscript in preparation.)
+> Ladino-Rincón, A., et al. (2026). *Radar DataTree: A Cloud-Native AI-Ready Data Model for Accessible, Time-Aware Weather Radar Datasets.* Submitted to *IEEE Transactions on Big Data*.
 
 **Earlier preprint:**
 

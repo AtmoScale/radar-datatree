@@ -41,4 +41,4 @@ preferred-citation:
   journal: arXiv
   doi: 10.48550/arXiv.2510.24943
   url: "https://doi.org/10.48550/arXiv.2510.24943"
-  notes: "Earlier preprint of a journal article in preparation (2026)."
+  notes: "Earlier preprint. The journal version — 'Radar DataTree: A Cloud-Native AI-Ready Data Model for Accessible, Time-Aware Weather Radar Datasets' (Ladino-Rincón et al., 2026) — is submitted to IEEE Transactions on Big Data."

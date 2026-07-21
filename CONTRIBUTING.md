@@ -37,7 +37,7 @@ Python ≥ 3.12 required.
 
 - **Ruff** for linting + import sorting (rules: `E, W, F, I, B, UP`; line length 88; `E402` allowed in notebooks).
 - **Ruff format** for Python files; **Black** for notebooks (kept consistent via pre-commit).
-- Non-trivial helpers live in `notebooks/demo_functions.py`. Thin wrappers stay inline in the notebook that uses them.
+- **Notebooks are self-contained.** There is no shared helper module — each notebook carries the code it uses, so it runs standalone on Colab or from a copy-paste. Keep inlined helpers short: prefer a small `pandas` table over a formatted-print block, drop parameters nothing uses, and put long figure builders in a `hide-input`-tagged cell.
 
 ## Reporting security issues
 
