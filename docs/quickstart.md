@@ -20,6 +20,10 @@ print(sorted(dt.children))   # → ['VCP-12', 'VCP-212', 'VCP-34', ...]
 
 That's it. `dt` is a hierarchical, time-indexed view of the entire KLOT archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), grouped by {term}`Volume Coverage Pattern <VCP>` and {term}`sweep`. Every variable is lazy — only the {term}`Zarr v3` chunks you slice into are fetched from S3.
 
+```{note}
+The same archives are also catalogued in [Arraylake](https://docs.earthmover.io/), Earthmover's managed data platform — `Client().get_repo("atmoscale/KLOT")` in place of the `icechunk` block above, returning an equivalent read-only session. That route needs an Arraylake account and access to the `atmoscale` organization, so **the tutorials all run the anonymous S3 path shown here**; each one shows the Arraylake equivalent alongside it.
+```
+
 ## What's next
 
 - {doc}`Notebook 1: NEXRAD KLOT Demo <1.NEXRAD-KLOT-Demo>` — the full access walkthrough: narrow the tree to one VCP and sweep, select a scan, plot its reflectivity.
