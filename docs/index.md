@@ -13,7 +13,7 @@
 ```
 
 :::{div} rdt-tagline
-Companion code for *Ladino-Rincón et al.* (2026, in preparation). An open-source project by [AtmoScale](https://atmoscale.ai).
+Companion code for *Ladino-Rincón et al.* (2026, submitted to *IEEE Transactions on Big Data*). An open-source project by [AtmoScale](https://atmoscale.ai).
 :::
 
 :::
@@ -43,7 +43,7 @@ Open the full archive in five lines of Python — no downloads, no decoders, no 
 **Analyze your own event**
 ^^^
 
-Open the live KLOT archive, slice a single severe-weather scan, and plot the polarimetric signature — in 5 lines.
+Open the KLOT archive, slice a single severe-weather scan straight from object storage, and plot it — in 5 lines.
 
 +++
 [Notebook 1 →](1.NEXRAD-KLOT-Demo) · [Quickstart →](quickstart.md)

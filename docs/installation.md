@@ -38,7 +38,7 @@ No multi-gigabyte downloads required — data streams directly from the cloud.
 
 ## Verify your install
 
-Run the {doc}`Quickstart <quickstart>` snippet in a Python session (or a fresh notebook cell). If it prints a list of `VCP-*` nodes, your install is healthy — every dependency loaded, anonymous S3 reads work, and you're already streaming from the public archive. Then jump straight into {doc}`Notebook 1 <1.NEXRAD-KLOT-Demo>` for the full polarimetric walkthrough.
+Run the {doc}`Quickstart <quickstart>` snippet in a Python session (or a fresh notebook cell). If it prints a list of `VCP-*` nodes, your install is healthy — every dependency loaded, anonymous S3 reads work, and you're already streaming from the public archive. Then jump straight into {doc}`Notebook 1 <1.NEXRAD-KLOT-Demo>` to open the archive and plot your first scan.
 
 ## What got installed
 

@@ -22,7 +22,8 @@ That's it. `dt` is a hierarchical, time-indexed view of the entire KLOT archive 
 
 ## What's next
 
-- {doc}`Notebook 1: NEXRAD KLOT Demo <1.NEXRAD-KLOT-Demo>` — the full walkthrough, including a 2×2 polarimetric visualization (Z, ZDR, RhoHV, PhiDP).
+- {doc}`Notebook 1: NEXRAD KLOT Demo <1.NEXRAD-KLOT-Demo>` — the full access walkthrough: narrow the tree to one VCP and sweep, select a scan, plot its reflectivity.
+- {doc}`Notebook 2: KLOT low sweeps <2.KLOT-LowSweeps>` — if you only need the lowest cuts, open the `KLOT-lowsweeps` virtual archive and get the 2×2 polarimetric view (Z, ZDR, RhoHV, PhiDP).
 - {doc}`Tutorials <tutorials>` — paper reproduction and large-scale rainfall accumulation.
 - {doc}`Installation <installation>` — if `import icechunk` failed, start here.
 
