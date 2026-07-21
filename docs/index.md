@@ -13,7 +13,7 @@
 ```
 
 :::{div} rdt-tagline
-Companion code for *Ladino-Rincón et al.* (2026, submitted to *IEEE Transactions on Big Data*). An open-source project by [AtmoScale](https://atmoscale.ai).
+Query decades of weather radar straight from object storage. An open-source project by [AtmoScale](https://atmoscale.ai).
 :::
 
 :::
@@ -24,15 +24,23 @@ Companion code for *Ladino-Rincón et al.* (2026, submitted to *IEEE Transaction
 Open the full archive in five lines of Python — no bulk downloads, no file-by-file decoding, no manual archive assembly.
 ```
 
-<div class="rdt-stat-bar">
-  <div class="rdt-stat"><strong>Hours → seconds</strong><span><a href="3.QVP-Workflow-Comparison.html">preparation becomes analysis</a></span></div>
-  <div class="rdt-stat"><strong>Open formats</strong><span><a href="about.html">Zarr v3 · Icechunk · no lock-in</a></span></div>
-  <div class="rdt-stat"><strong>One dataset</strong><span><a href="1.NEXRAD-KLOT-Demo.html">every VCP and sweep, time-indexed</a></span></div>
+<div class="rdt-highlights">
+  <a class="rdt-highlight rdt-highlight--speed" href="3.QVP-Workflow-Comparison.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
+    <strong>Hours &rarr; seconds</strong>
+    <span>Preparation collapses into analysis. The benchmark measures the gap on your machine.</span>
+  </a>
+  <a class="rdt-highlight rdt-highlight--open" href="about.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 7 4 12 9 17"></polyline><polyline points="15 7 20 12 15 17"></polyline></svg>
+    <strong>Open formats</strong>
+    <span>Zarr v3, Icechunk and CfRadial2 all the way down. Nothing proprietary, no lock-in.</span>
+  </a>
+  <a class="rdt-highlight rdt-highlight--one" href="1.NEXRAD-KLOT-Demo.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 3 21 7.5 12 12 3 7.5 12 3"></polygon><polyline points="3 12.5 12 17 21 12.5"></polyline><polyline points="3 17 12 21.5 21 17"></polyline></svg>
+    <strong>One dataset</strong>
+    <span>Every VCP and sweep on a single time axis, instead of a directory of binary files.</span>
+  </a>
 </div>
-
-:::{note}
-No fixed speedup is quoted here on purpose. The gap depends on your network and hardware — repeat runs of the same benchmark on one machine spanned more than a threefold range — so [Notebook 3](3.QVP-Workflow-Comparison) measures it on *your* machine and prints the result, rather than asking you to trust ours. For what "the whole archive" does and does not mean in storage terms, see [how big is the archive](glossary.md#how-big-is-the-archive).
-:::
 
 ## Choose your path
 
@@ -89,6 +97,8 @@ The DataTree / Icechunk / Zarr stack, the AtmoScale parent platform, and a gloss
 
 Instead of downloading and parsing thousands of binary files, you get direct access to time-indexed, multidimensional arrays — right from your Python session.
 
+The design and its benchmarks are described in *Ladino-Rincón et al.* (2026), *Radar DataTree: A Cloud-Native AI-Ready Data Model for Accessible, Time-Aware Weather Radar Datasets*, submitted to *IEEE Transactions on Big Data*. [Notebook 3](3.QVP-Workflow-Comparison) and [Notebook 4](4.QPE-Scaling-Benchmark) reproduce its two case studies — see [About](about.md) for the full citation.
+
 ```{toctree}
 :hidden:
 :maxdepth: 1
@@ -99,4 +109,5 @@ quickstart
 tutorials
 glossary
 about
+changelog
 ```
