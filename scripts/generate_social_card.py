@@ -84,7 +84,7 @@ def render(out_paths: list[Path]) -> None:
     ax.text(
         0.7,
         3.45,
-        "Stream petabyte-scale NEXRAD archives from the cloud.",
+        "From hours of preparation to seconds of analysis.",
         ha="left",
         va="top",
         fontname=body,
@@ -94,8 +94,8 @@ def render(out_paths: list[Path]) -> None:
     )
 
     metrics = [
-        ("60×", "faster"),
-        ("22×", "less RAM"),
+        ("Open", "formats"),
+        ("One", "dataset"),
         ("5 lines", "of code"),
     ]
     base_x = 0.7
