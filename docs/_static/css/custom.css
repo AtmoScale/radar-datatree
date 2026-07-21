@@ -360,37 +360,69 @@ html[data-theme="dark"] .bd-content .sd-card strong {
 /* Landing-page hero metrics — flat stat bar, deliberately *not* cards.
  * Keeping only one row of cards on the page (Choose-your-path) so the
  * navigation hierarchy reads cleanly. */
-.bd-content .rdt-stat-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2.5rem 3.5rem;
+/* Homepage highlight cards.
+ *
+ * These replaced a numeric stat bar. Three qualitative claims rendered as three
+ * identical 3rem headlines were indistinguishable and wrapped 2+1 on a laptop,
+ * so each now carries its own accent colour and icon, and the whole card is the
+ * link rather than an underlined caption. */
+.bd-content .rdt-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
   margin: 1.75rem 0 2.5rem;
-  padding: 1.25rem 0;
 }
 
-.bd-content .rdt-stat-bar .rdt-stat {
+@media (max-width: 900px) {
+  .bd-content .rdt-highlights { grid-template-columns: 1fr; }
+}
+
+.bd-content .rdt-highlight {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-width: 10rem;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--rdt-bg-elevated);
+  border: 1px solid var(--rdt-border);
+  border-left: 4px solid var(--rdt-highlight-accent);
+  border-radius: 0.5rem;
+  text-decoration: none !important;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-.bd-content .rdt-stat-bar .rdt-stat strong {
+.bd-content .rdt-highlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 47, 77, 0.1);
+  border-color: var(--rdt-highlight-accent);
+}
+
+.bd-content .rdt-highlight svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--rdt-highlight-accent);
+}
+
+.bd-content .rdt-highlight strong {
   font-family: var(--rdt-font-display, var(--rdt-font-body));
-  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-size: 1.3rem;
   font-weight: 700;
-  line-height: 1;
-  color: var(--rdt-teal-500);
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--rdt-navy-900);
 }
 
-.bd-content .rdt-stat-bar .rdt-stat span {
-  margin-top: 0.4rem;
+.bd-content .rdt-highlight span {
   font-size: 0.9rem;
+  line-height: 1.45;
   color: var(--pst-color-text-muted);
 }
+
+/* One accent per card, so they are told apart at a glance. */
+.bd-content .rdt-highlight--speed { --rdt-highlight-accent: var(--rdt-teal-500); }
+.bd-content .rdt-highlight--open  { --rdt-highlight-accent: var(--rdt-green-500); }
+.bd-content .rdt-highlight--one   { --rdt-highlight-accent: var(--rdt-orange-500); }
 
 html[data-theme="dark"] .rdt-cta-card::after,
 html[data-theme="dark"] .rdt-tutorial-card::after {
