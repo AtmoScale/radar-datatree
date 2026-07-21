@@ -108,9 +108,16 @@ are stored uncompressed, so for them bytes on the wire equal bytes in memory.)
 **Materialized size** — what a *native* ARCO copy occupies once decoded, harmonized and
 rechunked. This is real duplicated storage, and it is the cost virtualization avoids.
 
-**Virtual reference size** — what a repo like `KLOT-lowsweeps` occupies. Its chunks are byte-range
-references into objects that already exist, so it re-indexes the archive rather than copying it.
-Notebook 2 shows `session.chunk_type(...)` reporting `ChunkType.virtual` for exactly this reason.
+**Virtual reference size** — what a repo like `KLOT-lowsweeps` occupies: manifests, essentially.
+Its chunks are byte-range references into chunks that already exist, so publishing another view of
+the archive costs almost nothing. Notebook 2 shows `session.chunk_type(...)` reporting
+`ChunkType.virtual` for exactly this reason.
+
+Be precise about what that proves. `KLOT-lowsweeps` references the **already-converted ARCO
+chunks**, so it avoids a *second* duplication, not the first — the conversion it points into has
+already written a full copy of the payload. References that point straight at the raw Level II
+objects, skipping conversion altogether, are the stronger claim; they require a NEXRAD codec at
+read time and are not demonstrated on this site yet.
 
 **Bytes transferred** — what a bounded query actually pulls over the network, and usually the only
 one a user feels. In Notebook 3's benchmark the file-based path moves ~810 MiB compressed — about
