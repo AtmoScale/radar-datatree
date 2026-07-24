@@ -28,7 +28,7 @@ dependencies = [
     "xradar>=0.12.0",
     "zarr>=3.1.2",
     # Rust-backed xarray DataTree backend (engine="rustytree")
-    "rustytree-xarray>=0.3.0",
+    "rustytree-xarray>=0.4.0",
     "icechunk>=2.0.4",
     "fsspec",
     "s3fs>=2025.5.1",
