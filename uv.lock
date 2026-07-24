@@ -3253,7 +3253,7 @@ requires-dist = [
     { name = "numpy", specifier = "<2.3" },
     { name = "pandas" },
     { name = "pyproj", specifier = ">=3.6.0" },
-    { name = "rustytree-xarray", specifier = ">=0.3.0" },
+    { name = "rustytree-xarray", specifier = ">=0.4.0" },
     { name = "s3fs", specifier = ">=2025.5.1" },
     { name = "xarray", specifier = ">=2026.4.0" },
     { name = "xradar", specifier = ">=0.12.0" },
@@ -3467,20 +3467,20 @@ wheels = [
 
 [[package]]
 name = "rustytree-xarray"
-version = "0.3.0"
+version = "0.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "xarray" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0e/91/1c5ca2ba9685ab4521d6ce5b3bd0b22ba3f15eaac2a7f171c93777018525/rustytree_xarray-0.3.0.tar.gz", hash = "sha256:113b66efd62461a4faab009e3a166a6bd95a8b012d1d839b8122858db49f7418", size = 1222848, upload-time = "2026-07-04T19:56:30.098Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e4/ef/dc2fb6c0cbead0bd3883e37ab7148bde8ec5d20ee8cd42dd6718c8887eb5/rustytree_xarray-0.4.0.tar.gz", hash = "sha256:b990318490a73c626533028ce8d080af7989193107d4f8c42d3ea994871f9d27", size = 1240841, upload-time = "2026-07-24T20:22:02.14Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d7/4e/08a5d761d9ef7455097422e8f93ecb97a94db01b1523975ab484ad519e24/rustytree_xarray-0.3.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:0e9803e04b4e0c3b12ab441ca70c1997098be03301926940b1f2b266a2952fb9", size = 10159443, upload-time = "2026-07-04T19:56:16.699Z" },
-    { url = "https://files.pythonhosted.org/packages/ad/0d/99595111d35e75157c5c07328605e225ef58047921081c8364e33392ffd8/rustytree_xarray-0.3.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:854be6cc6c225ec87aa2a848683019100e2e17b560bd0d7cfd07bc86a1e800d7", size = 11204360, upload-time = "2026-07-04T19:56:19.025Z" },
-    { url = "https://files.pythonhosted.org/packages/0f/04/2bd25b5b087775ee984e34473504d535be761601c1ab255b44fac648e9f5/rustytree_xarray-0.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bdea8a4e8d4fd6b11f32367c72782ace400788bd08d71e6d107d960d9538cf4b", size = 11831029, upload-time = "2026-07-04T19:56:21.237Z" },
-    { url = "https://files.pythonhosted.org/packages/d3/d5/0d9895211faf560dd8261e370c7329e3685d0c779aa1a5ad9998641541d8/rustytree_xarray-0.3.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:af11e1de30ed667a40bbede2ffb2c732581238f6a96ecd313f31840737e27675", size = 10159814, upload-time = "2026-07-04T19:56:23.709Z" },
-    { url = "https://files.pythonhosted.org/packages/e1/ed/71b394ec0edea9a4324a975d4ccaf18d9dd67853bdbb7e58af21565abba2/rustytree_xarray-0.3.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2b18e3a1d224f85654ca913f5751711f5c651d0ddb452c1b5e7c4259b772eb89", size = 11204367, upload-time = "2026-07-04T19:56:25.718Z" },
-    { url = "https://files.pythonhosted.org/packages/f0/cf/839a6a41e3e64e4b2c2c1a14aea498e7abb64e78a4fa6dc7c10131c180a7/rustytree_xarray-0.3.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bdc81461649cb549d24ccead3d86c3e72618a5057f75a3bb49a836e554e40ca4", size = 11831036, upload-time = "2026-07-04T19:56:28.164Z" },
+    { url = "https://files.pythonhosted.org/packages/a4/f2/2731bfb6ba87148b749591f7f45fd1669684fcb99a881f8d8933ffb4000d/rustytree_xarray-0.4.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:64e9da103e22ad98d1a250e56458baecd20e40b71f19060f63f29588520b9d35", size = 10309232, upload-time = "2026-07-24T20:21:48.154Z" },
+    { url = "https://files.pythonhosted.org/packages/2d/6c/28575d3f154c0733d25e558e4d8fb620055d48bb625b0edd4749c3cf5d7b/rustytree_xarray-0.4.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e0deb6009e9391daa3fb9eb4ce324f5ed2d8def7006b1948a2880220aa268ed5", size = 11351378, upload-time = "2026-07-24T20:21:50.552Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/9d/335d1bfed296976ee95d52928572cc92f768451f5c0c11fc9b5741196568/rustytree_xarray-0.4.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:813491dbe4a4286086c29076ffe0e6a66d1113427e920d3af4a68023dc982af9", size = 11951194, upload-time = "2026-07-24T20:21:53.223Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/c9/2127ebcfbd3de980a16928007f35cccfd2e1cb07fa35e65d17f7fcbb78ef/rustytree_xarray-0.4.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:629a10b7097b8d9b7f138d21b1083b465f1780285348bb93f17d42bfb4525bc7", size = 10308337, upload-time = "2026-07-24T20:21:55.588Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/34/138ca940a676eac3f5d22589540ae7a4c7d57cbca041393ce1a18fb6c23b/rustytree_xarray-0.4.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:695761a71c01cb499f2e0cb94386e5b949d383a5a53f508a294b601f29c34cd7", size = 11350863, upload-time = "2026-07-24T20:21:57.641Z" },
+    { url = "https://files.pythonhosted.org/packages/f2/23/57c119ad2c4043b50df2a44b9cd9dcad2553ad92fba24ee4449a8d4f45f9/rustytree_xarray-0.4.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ea54adcfbadce7d33aaa8067e9dfdaa15feef72f0885fbbb398503f3900f9918", size = 11951036, upload-time = "2026-07-24T20:22:00.04Z" },
 ]
 
 [[package]]
