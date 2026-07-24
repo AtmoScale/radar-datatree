@@ -97,13 +97,22 @@ sphinx-build -b html docs _build/html
 
 Sphinx uses `myst_nb` in `cache` execution mode with a 600-second per-cell timeout (`nb_execution_timeout` in `docs/conf.py`). Notebooks are re-executed only when code changes.
 
-## Pinned / Custom Dependencies
+## Dependencies
 
-- **xarray**: Uses a custom async fork (`git+https://github.com/aladinor/xarray.git@async-dtreec`), not the official release
-- **icechunk**: Pinned to a specific commit (`d11af22`) from git
-- **zarr**: `>=3.1.2`
-- **s3fs**: `>=2025.5.1`
-- **uv**: Uses `unsafe-best-match` index strategy with `scientific-python-nightly-wheels` as extra index
+All dependencies are now plain PyPI version ranges in `pyproject.toml` — the earlier custom
+`xarray` fork and pinned `icechunk` commit are gone. Notable constraints:
+
+- **numpy**: capped at `<2.3` deliberately; do not lift without re-running every notebook.
+- **rustytree-xarray** `>=0.3.0`: the Rust DataTree backend the notebooks open with.
+- **uv**: uses `unsafe-best-match` index strategy with `scientific-python-nightly-wheels` as an
+  extra index (`[tool.uv]` in `pyproject.toml`), so nightly wheels can be resolved.
+
+**Dependency updates are automated** by `.github/dependabot.yml`: weekly, batching minor/patch
+Python bumps into one PR and raising majors individually, plus the GitHub Actions in the workflow.
+There is no unit test suite, so every Dependabot PR is validated by the docs build re-executing all
+notebooks (render-notebooks.yml triggers on `pyproject.toml`/`uv.lock`). A bump that breaks a
+notebook fails CI and cannot merge. The `numpy` `<2.3` cap is respected; its major bumps are
+ignored in the config.
 
 ## Quick Start (Programmatic Access)
 
