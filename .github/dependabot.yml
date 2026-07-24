@@ -1,0 +1,55 @@
+# Dependabot keeps two things current: the Python packages the notebooks run on,
+# and the GitHub Actions the docs build uses. There is no formal test suite —
+# notebook execution via Sphinx IS the integration test (see CLAUDE.md) — but
+# render-notebooks.yml already triggers on pyproject.toml / uv.lock changes and
+# executes every notebook cold, so each Dependabot PR is validated end to end
+# before it can merge. A bump that breaks a notebook fails the docs build.
+version: 2
+updates:
+  # ---- Python dependencies (pyproject.toml + uv.lock) --------------------
+  # Dependabot's "pip" ecosystem detects the uv.lock and keeps it in sync.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+    # One batched PR for the routine minor/patch bumps keeps review light; the
+    # whole book re-executes against the batch, so a regression is caught as a
+    # unit even though the packages moved together.
+    groups:
+      python-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    # Majors land as individual PRs. The fast-moving scientific stack here
+    # (xarray, zarr, icechunk, rustytree-xarray) breaks notebooks on majors far
+    # more often than on patches, and each deserves its own build + review.
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+    ignore:
+      # numpy carries a deliberate `<2.3` upper bound in pyproject.toml; nothing
+      # for Dependabot to do there until that ceiling is lifted by hand, and a
+      # major-version PR against it would only be noise.
+      - dependency-name: "numpy"
+        update-types: ["version-update:semver-major"]
+
+  # ---- GitHub Actions used by render-notebooks.yml ----------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
