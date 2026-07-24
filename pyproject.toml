@@ -35,7 +35,7 @@ dependencies = [
     "dask",
     "distributed",
     "pandas",
-    "numpy<2.3",
+    "numpy<2.6",
     "matplotlib",
     "cmweather",
     "hvplot",
