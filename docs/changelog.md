@@ -1,3 +1,7 @@
+---
+orphan: true
+---
+
 # Changelog
 
 Notable changes to the tutorials, the published claims, and the data-access patterns.

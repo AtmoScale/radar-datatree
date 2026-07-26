@@ -109,5 +109,4 @@ quickstart
 tutorials
 glossary
 about
-changelog
 ```
