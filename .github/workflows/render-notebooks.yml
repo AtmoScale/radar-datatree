@@ -50,10 +50,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
           version: "latest"
           enable-cache: true
@@ -65,7 +65,7 @@ jobs:
           uv venv --python 3.12
 
       - name: Cache virtual environment
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .venv
           key: venv-${{ runner.os }}-py3.12-${{ hashFiles('pyproject.toml', 'uv.lock') }}
@@ -84,7 +84,7 @@ jobs:
       # it re-executes cold against the live archives.
       - name: Cache jupyter-cache (MyST-NB execution outputs)
         if: github.event_name != 'schedule'
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: _build/.jupyter_cache
           key: nbcache-${{ runner.os }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
@@ -125,7 +125,7 @@ jobs:
 
       - name: Upload artifact for Pages
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _build/html
 
@@ -141,4 +141,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
