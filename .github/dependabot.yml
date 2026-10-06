@@ -31,11 +31,13 @@ updates:
     commit-message:
       prefix: "deps"
     ignore:
-      # numpy carries a deliberate `<2.3` upper bound in pyproject.toml; nothing
-      # for Dependabot to do there until that ceiling is lifted by hand, and a
-      # major-version PR against it would only be noise.
+      # numpy carries a deliberate upper bound in pyproject.toml, lifted by hand
+      # only after re-running every notebook. Raising a `<2.x` cap counts as a
+      # *minor* update, so ignoring majors alone let PR #60 through.
       - dependency-name: "numpy"
-        update-types: ["version-update:semver-major"]
+      # icechunk is pinned to the minor rustytree-xarray is built against; the
+      # two move together by hand (see pyproject.toml).
+      - dependency-name: "icechunk"
 
   # ---- GitHub Actions used by render-notebooks.yml ----------------------
   - package-ecosystem: "github-actions"

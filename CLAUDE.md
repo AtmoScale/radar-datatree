@@ -102,8 +102,10 @@ Sphinx uses `myst_nb` in `cache` execution mode with a 600-second per-cell timeo
 All dependencies are now plain PyPI version ranges in `pyproject.toml` — the earlier custom
 `xarray` fork and pinned `icechunk` commit are gone. Notable constraints:
 
-- **numpy**: capped at `<2.3` deliberately; do not lift without re-running every notebook.
-- **rustytree-xarray** `>=0.3.0`: the Rust DataTree backend the notebooks open with.
+- **numpy**: capped at `<2.6` deliberately; do not lift without re-running every notebook.
+- **rustytree-xarray** `>=0.5.1`: the Rust DataTree backend the notebooks open with.
+- **icechunk** `>=2.2.0,<2.3`: must match the icechunk minor rustytree-xarray is built against —
+  a mismatch fails at runtime with `wrong msgpack marker`. Bump the two together.
 - **uv**: uses `unsafe-best-match` index strategy with `scientific-python-nightly-wheels` as an
   extra index (`[tool.uv]` in `pyproject.toml`), so nightly wheels can be resolved.
 
@@ -111,8 +113,8 @@ All dependencies are now plain PyPI version ranges in `pyproject.toml` — the e
 Python bumps into one PR and raising majors individually, plus the GitHub Actions in the workflow.
 There is no unit test suite, so every Dependabot PR is validated by the docs build re-executing all
 notebooks (render-notebooks.yml triggers on `pyproject.toml`/`uv.lock`). A bump that breaks a
-notebook fails CI and cannot merge. The `numpy` `<2.3` cap is respected; its major bumps are
-ignored in the config.
+notebook fails CI and cannot merge. The `numpy` cap and the `icechunk`
+minor pin are set by hand, so Dependabot ignores both packages entirely.
 
 ## Quick Start (Programmatic Access)
 
