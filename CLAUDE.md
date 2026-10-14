@@ -103,9 +103,11 @@ All dependencies are now plain PyPI version ranges in `pyproject.toml` — the e
 `xarray` fork and pinned `icechunk` commit are gone. Notable constraints:
 
 - **numpy**: capped at `<2.6` deliberately; do not lift without re-running every notebook.
-- **rustytree-xarray** `>=0.5.1`: the Rust DataTree backend the notebooks open with.
-- **icechunk** `>=2.2.0,<2.3`: must match the icechunk minor rustytree-xarray is built against —
-  a mismatch fails at runtime with `wrong msgpack marker`. Bump the two together.
+- **rustytree-xarray** `>=0.5.2`: the Rust DataTree backend the notebooks open with.
+- **icechunk** `>=2.3.0,<2.4`: must match the icechunk minor rustytree-xarray is built against —
+  a mismatch fails at runtime with `wrong msgpack marker` or `array had incorrect length`. Bump the
+  two together, **and** in the Colab bootstrap `%pip install` cell of NB1–NB4 (Colab ignores
+  `pyproject.toml`, so an unpinned `icechunk` there pulls the newest minor).
 - **uv**: uses `unsafe-best-match` index strategy with `scientific-python-nightly-wheels` as an
   extra index (`[tool.uv]` in `pyproject.toml`), so nightly wheels can be resolved.
 
