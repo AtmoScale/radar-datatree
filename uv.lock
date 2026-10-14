@@ -1237,20 +1237,26 @@ wheels = [
 
 [[package]]
 name = "icechunk"
-version = "2.2.2"
-source = { registry = "https://pypi.org/simple" }
+version = "2.3.0"
+source = { registry = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple" }
 dependencies = [
     { name = "zarr" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7b/6c/c5cbafbf86140f98b16c1c5df83f2baec8093e28b5a64700b05de99c317e/icechunk-2.2.2.tar.gz", hash = "sha256:33ccfd599f395d695038b0671e64aff69081db644d19e62fca1da25343d83e0f", size = 3648197, upload-time = "2026-09-17T19:46:01.645Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fc/0b/515e2503e74ad283f45495c7fa01ebff3b55e8dba0d6b2b1bf3832c762cb/icechunk-2.2.2-cp312-abi3-macosx_10_12_x86_64.whl", hash = "sha256:9f88d3d9cb12f81c52f3319c903ee8c9f87c1983695ece4d9cdf0c30c6f46f65", size = 16509542, upload-time = "2026-09-17T19:46:08.755Z" },
-    { url = "https://files.pythonhosted.org/packages/b1/53/a3d4b967e58db8c01cf4135c99fb3234bb71b62c840d3db6e926372ecefc/icechunk-2.2.2-cp312-abi3-macosx_11_0_arm64.whl", hash = "sha256:0f330812861d70a251274cc7746aeafb49957a5f2a147780d7a761f184a9a253", size = 15219440, upload-time = "2026-09-17T19:46:06.4Z" },
-    { url = "https://files.pythonhosted.org/packages/d1/1b/0fb42e7cd8a4d3ac97d81f20d53646375446c486eb9e3ac005a25b0d84b3/icechunk-2.2.2-cp312-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e77133f030a46de5eb0f824028c0bec53a5f876faf9366c797d370e1f533bccd", size = 17170619, upload-time = "2026-09-17T19:46:03.466Z" },
-    { url = "https://files.pythonhosted.org/packages/80/84/bb13b97d600c15bcca761992ed908f8ed323fb5215b2ca077ead8a295798/icechunk-2.2.2-cp312-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:fff3bc4f71d742463f43b456ef28569c443b8d5eb972d5a98b66ad6c09439864", size = 16845220, upload-time = "2026-09-17T19:45:59.232Z" },
-    { url = "https://files.pythonhosted.org/packages/5a/72/7a8cb22f0eb696fd75e48a1dde3604220459b3cfab621a6d88db814a48c4/icechunk-2.2.2-cp312-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:79f6610b2cc912d0e92536dd44cf415e0e38595761bb7df3ed281126e97ce4b0", size = 17055238, upload-time = "2026-09-17T19:46:11.057Z" },
-    { url = "https://files.pythonhosted.org/packages/48/31/f5003919328252c7becd23fd69dbfeceaeac9dda1654696319c41a39aec3/icechunk-2.2.2-cp312-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:eae72e06510ad25343facc24bf8863902f971702f43aed2d0750a213dd779d12", size = 17644316, upload-time = "2026-09-17T19:46:13.417Z" },
-    { url = "https://files.pythonhosted.org/packages/58/ba/fd36e4ac31a680e75312daf6268afce9c83216b165753f474adf1d6abda3/icechunk-2.2.2-cp312-abi3-win_amd64.whl", hash = "sha256:1338c514ddc98251c6cdb113fd0e57d7c761f8cb3e97e5cf3cbff7f73c817641", size = 16161580, upload-time = "2026-09-17T19:46:17.002Z" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-macosx_10_12_x86_64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-macosx_11_0_arm64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-manylinux_2_28_aarch64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-musllinux_1_2_aarch64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-musllinux_1_2_x86_64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp312-abi3-win_amd64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-macosx_10_12_x86_64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-macosx_11_0_arm64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-manylinux_2_28_aarch64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-musllinux_1_2_aarch64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-musllinux_1_2_x86_64.whl" },
+    { url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple/icechunk/2.3.0/icechunk-2.3.0-cp314-cp314t-win_amd64.whl" },
 ]
 
 [[package]]
@@ -3281,7 +3287,7 @@ requires-dist = [
     { name = "fsspec" },
     { name = "geopandas", specifier = ">=1.0.0" },
     { name = "hvplot" },
-    { name = "icechunk", specifier = ">=2.2.0,<2.3" },
+    { name = "icechunk", specifier = ">=2.3.0,<2.4" },
     { name = "ipykernel", marker = "extra == 'dev'" },
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "jupyterlab", marker = "extra == 'dev'" },
@@ -3291,7 +3297,7 @@ requires-dist = [
     { name = "numpy", specifier = "<2.6" },
     { name = "pandas" },
     { name = "pyproj", specifier = ">=3.6.0" },
-    { name = "rustytree-xarray", specifier = ">=0.5.1" },
+    { name = "rustytree-xarray", specifier = ">=0.5.2" },
     { name = "s3fs", specifier = ">=2025.5.1" },
     { name = "xarray", specifier = ">=2026.4.0" },
     { name = "xradar", specifier = ">=0.12.0" },
@@ -3505,20 +3511,20 @@ wheels = [
 
 [[package]]
 name = "rustytree-xarray"
-version = "0.5.1"
+version = "0.5.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "xarray" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/76/0b/961d7334afee63a7a854202250367d6ee9f93c76b5affa141dcd9a943f2a/rustytree_xarray-0.5.1.tar.gz", hash = "sha256:9c754a56b3ddaf6a306a531c0efa12776f31fda06fb15196ac8cdb99659d198e", size = 1245932, upload-time = "2026-09-21T22:54:29.753Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/62/f0/5083a25e70f421cfe2227b855449b84ad66ba14275c64b93893ebf3d4679/rustytree_xarray-0.5.2.tar.gz", hash = "sha256:adb245d4dae3eabbae2cf8acaaae7ae426e4c847878c9f6dd047edd7617be622", size = 1246776, upload-time = "2026-10-14T20:56:20.276Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c1/d2/0b0a25c8c31773ac9e4c8743b08607b217731ff004994a2f3c267e0cff51/rustytree_xarray-0.5.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:036651cf16582b1fc97bb8634fa9103a8282516382211e9146cd11bbea50193d", size = 10151418, upload-time = "2026-09-21T22:54:15.063Z" },
-    { url = "https://files.pythonhosted.org/packages/09/21/72f23d03a2ed714ad81e4938a355dbd334bcdd00464ca2e1321148e1dd14/rustytree_xarray-0.5.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:df616c8d392eb04ee94fe3ab364a68cf600366d06b27b48b297fc64b4c4fd303", size = 11173557, upload-time = "2026-09-21T22:54:17.912Z" },
-    { url = "https://files.pythonhosted.org/packages/54/2e/25b563f33f27146d618865c5b71ea37e389dba21a2f611a105a2f62d4630/rustytree_xarray-0.5.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ff8f1edf18162d90616cf72bd324cca142408bd7a3798d0c5b875c28014fdc1e", size = 11774563, upload-time = "2026-09-21T22:54:20.454Z" },
-    { url = "https://files.pythonhosted.org/packages/1b/16/72719182f55e49cea0827645cd4c66aa4b4c61d6ec501e04b9d80e9a5eae/rustytree_xarray-0.5.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:aa2a6ad2bad44d30e982313e12af3fdc404048675cc81263cb44c790dc91a072", size = 10151056, upload-time = "2026-09-21T22:54:22.64Z" },
-    { url = "https://files.pythonhosted.org/packages/98/cd/74358b90beec53ec52666769d7b36e7a9d429eda1dcfe6cf7cfdd47d6b6d/rustytree_xarray-0.5.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:aa2ad47501be4fc61041aef4e8db06a7aa31514a78c74fa122e79ab6be0ae106", size = 11174415, upload-time = "2026-09-21T22:54:24.863Z" },
-    { url = "https://files.pythonhosted.org/packages/06/95/360c5d4def1a6d973661a5eae045153dbf2ad1c1d589da1125058714f58d/rustytree_xarray-0.5.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bdcd3ecf7901609a305a97f7ab36224435227e36059585cbbccfe8c6b4cf46f7", size = 11774429, upload-time = "2026-09-21T22:54:27.336Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/39/f6215ede1677445240f6176e08eaa544c94b975c2d90c24f986d020e718e/rustytree_xarray-0.5.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:70dc1105d7aab8be841cc1fb2181b2743613648c5f4201ec52fbc4ad5288e2cb", size = 10088241, upload-time = "2026-10-14T20:56:05.796Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/34/2346c832f9beb45fa7fea78c6bd5e537e1f18f66398209978f45d6abb80d/rustytree_xarray-0.5.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d5a601dd29b13e73d83f0adb0cae382c897032241d80c24fbf3facb13aba2bfc", size = 11136976, upload-time = "2026-10-14T20:56:08.705Z" },
+    { url = "https://files.pythonhosted.org/packages/40/ca/b8ef350c9ca01439affdbea08c88edb9e493686ca1e0841bea9ddff81b4d/rustytree_xarray-0.5.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f2501c39f4a6650e4bd04942a4e94cfd34cdfd2150098a3b4be501f8ffd010a7", size = 11769090, upload-time = "2026-10-14T20:56:11.063Z" },
+    { url = "https://files.pythonhosted.org/packages/7c/c7/2dbc1c6bde1dc91ce707dae1c3b62796e1d9b802e4d4f190fc22caa3fafc/rustytree_xarray-0.5.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:dd80c97676352f69ac406355640f8e1129d54eadf401854d68cdbb55eb9fae5e", size = 10088322, upload-time = "2026-10-14T20:56:13.338Z" },
+    { url = "https://files.pythonhosted.org/packages/15/7c/29d3dded81c039d8ba495ba673552f9d30c420cd5a8583c8cf430842c795/rustytree_xarray-0.5.2-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ecdc365561772efc90a60eef35d3d10ee05e1ba1c77b28b30201a30d9e6db954", size = 11136750, upload-time = "2026-10-14T20:56:15.875Z" },
+    { url = "https://files.pythonhosted.org/packages/a5/10/0b006301daf4069bfd45cd46799db6f50b70de152bd6662f773404314597/rustytree_xarray-0.5.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1bb881fb3f048c0f2f86e431e68cde6c4e187d061d4cc71ff6228079fb25af98", size = 11769777, upload-time = "2026-10-14T20:56:18.31Z" },
 ]
 
 [[package]]
