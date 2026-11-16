@@ -15,7 +15,7 @@ storage = icechunk.s3_storage(
 session = icechunk.Repository.open(storage).readonly_session("main")
 
 dt = xr.open_datatree(session.store, engine="rustytree", chunks=None)
-print(sorted(dt.children))   # → ['VCP-12', 'VCP-212', 'VCP-34', ...]
+print(sorted(dt.children))  # → ['VCP-12', 'VCP-212', 'VCP-34', ...]
 ```
 
 That's it. `dt` is a hierarchical, time-indexed view of the entire KLOT archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/), grouped by {term}`Volume Coverage Pattern <VCP>` and {term}`sweep`. Every variable is lazy — only the {term}`Zarr v3` chunks you slice into are fetched from S3.

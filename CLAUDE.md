@@ -127,12 +127,12 @@ import icechunk as ic
 
 # Connect to KLOT data
 storage = ic.s3_storage(
-    bucket='nexrad-arco',
-    prefix='KLOT-RT',
-    endpoint_url='https://umn1.osn.mghpcc.org',
+    bucket="nexrad-arco",
+    prefix="KLOT-RT",
+    endpoint_url="https://umn1.osn.mghpcc.org",
     anonymous=True,
     force_path_style=True,
-    region='us-east-1',
+    region="us-east-1",
 )
 repo = ic.Repository.open(storage)
 session = repo.readonly_session("main")
