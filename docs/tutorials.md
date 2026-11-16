@@ -18,8 +18,9 @@ Run [Verify your install](installation.md#verify-your-install) once before the f
 
 Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry.opendata.aws/nexrad-arco/) as one `xarray.DataTree`, narrow it to a single VCP and sweep, and read back one scan of a July 2016 hailstorm as reflectivity.
 
-+++
+:::{card-footer}
 [Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-success}`Beginner`
+:::
 ```
 
 ```{grid-item-card}
@@ -31,8 +32,9 @@ Open the KLOT (Chicago) archive on the [AWS Open Data Registry](https://registry
 
 Only need the cuts closest to the ground? Open the `KLOT-lowsweeps` **virtual reference** archive and get `sweep_0` and `sweep_1` as continuous time axes over the whole record — no VCP bookkeeping, and no bytes copied. See why both sit at the same 0.5° elevation (the split cut), then plot Z, ZDR, RHOHV and PHIDP.
 
-+++
+:::{card-footer}
 [Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-success}`Beginner`
+:::
 ```
 
 ```{grid-item-card}
@@ -44,8 +46,9 @@ Only need the cuts closest to the ground? Open the `KLOT-lowsweeps` **virtual re
 
 Compute the QVP for the May 20, 2011 KVNX MCS via the traditional file workflow vs ARCO streaming, assert both produce the identical profile, and measure the gap — **hours of preparation become seconds of analysis**. The notebook re-measures on your machine rather than quoting a fixed number.
 
-+++
+:::{card-footer}
 [Read]{.rdt-meta-label} 7 min · [Run]{.rdt-meta-label} ~6 min · {bdg-warning}`Intermediate`
+:::
 ```
 
 ```{grid-item-card}
@@ -57,8 +60,9 @@ Compute the QVP for the May 20, 2011 KVNX MCS via the traditional file workflow 
 
 Marshall–Palmer Z–R rainfall accumulation, live for one day. Cluster-recommended copy-paste templates for **7d / 30d / 6mo** runs included.
 
-+++
+:::{card-footer}
 [Read]{.rdt-meta-label} 5 min · [Run]{.rdt-meta-label} ~1 min · {bdg-warning}`Intermediate`
+:::
 ```
 
 ````

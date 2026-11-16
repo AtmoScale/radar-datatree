@@ -1,6 +1,6 @@
 # radar-datatree
 
-:::{div} rdt-hero
+::::{div} rdt-hero
 
 ```{image} /_static/logo-banner.png
 :alt: radar-datatree — Cloud-native, time-aware weather radar datasets
@@ -16,7 +16,7 @@
 Query decades of weather radar straight from object storage. An open-source project by [AtmoScale](https://atmoscale.ai).
 :::
 
-:::
+::::
 
 ```{epigraph}
 **The problem isn't NEXRAD data. It's the infrastructure around it.**
@@ -52,13 +52,15 @@ Open the full archive in five lines of Python — no bulk downloads, no file-by-
 :link-type: doc
 :class-card: rdt-cta-card
 
+:::{card-header}
 **Analyze your own event**
-^^^
+:::
 
 Open the KLOT archive, slice a single severe-weather scan straight from object storage, and plot it — in 5 lines.
 
-+++
+:::{card-footer}
 [Notebook 1 →](1.NEXRAD-KLOT-Demo) · [Quickstart →](quickstart.md)
+:::
 ```
 
 ```{grid-item-card}
@@ -66,13 +68,15 @@ Open the KLOT archive, slice a single severe-weather scan straight from object s
 :link-type: doc
 :class-card: rdt-cta-card
 
+:::{card-header}
 **Reproduce paper results**
-^^^
+:::
 
 Reproduce Ryzhkov et al. (2016) Fig. 4 in `~10 s` on a laptop. Then push to seasonal scale with Marshall–Palmer QPE.
 
-+++
+:::{card-footer}
 [Notebook 3 →](3.QVP-Workflow-Comparison) · [Notebook 4 →](4.QPE-Scaling-Benchmark)
+:::
 ```
 
 ```{grid-item-card}
@@ -80,13 +84,15 @@ Reproduce Ryzhkov et al. (2016) Fig. 4 in `~10 s` on a laptop. Then push to seas
 :link-type: doc
 :class-card: rdt-cta-card
 
+:::{card-header}
 **Understand the data model**
-^^^
+:::
 
 The DataTree / Icechunk / Zarr stack, the AtmoScale parent platform, and a glossary of every radar acronym in one place.
 
-+++
+:::{card-footer}
 [About →](about.md) · [Glossary →](glossary.md)
+:::
 ```
 
 ````

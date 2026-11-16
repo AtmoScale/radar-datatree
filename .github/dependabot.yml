@@ -7,8 +7,10 @@
 version: 2
 updates:
   # ---- Python dependencies (pyproject.toml + uv.lock) --------------------
-  # Dependabot's "pip" ecosystem detects the uv.lock and keeps it in sync.
-  - package-ecosystem: "pip"
+  # Must be the "uv" ecosystem: "pip" reads only the ranges in pyproject.toml,
+  # and since nearly all of them are open `>=` bounds it found nothing to update
+  # and left uv.lock frozen for months while reporting success.
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "weekly"
