@@ -108,8 +108,9 @@ All dependencies are now plain PyPI version ranges in `pyproject.toml` — the e
   a mismatch fails at runtime with `wrong msgpack marker` or `array had incorrect length`. Bump the
   two together, **and** in the Colab bootstrap `%pip install` cell of NB1–NB4 (Colab ignores
   `pyproject.toml`, so an unpinned `icechunk` there pulls the newest minor).
-- **uv**: uses `unsafe-best-match` index strategy with `scientific-python-nightly-wheels` as an
-  extra index (`[tool.uv]` in `pyproject.toml`), so nightly wheels can be resolved.
+- **uv**: resolves from PyPI only. Do not re-add `scientific-python-nightly-wheels` as an extra
+  index: with `unsafe-best-match`, `uv.lock` pinned `icechunk` to a nightly-index URL that the index
+  later purged, and every `uv sync` 404'd until the lock was regenerated.
 
 **Dependency updates are automated** by `.github/dependabot.yml`: weekly, batching minor/patch
 Python bumps into one PR and raising majors individually, plus the GitHub Actions in the workflow.
